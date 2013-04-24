@@ -6,6 +6,7 @@ import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
  * A domain class describes the data object and it's mapping to the database
  */
 class Beer {
+    static searchable = true
 
     /* Default (injected) attributes of GORM */
     //	Long	id
@@ -49,6 +50,11 @@ class Beer {
         def baURL = g.message( code: "beerAdvocate.baseURL" )
         def url = baPage?.toLowerCase()?.replace( baURL, "" )?.trim()
         baPage = url == "" ? null : url
+    }
+
+    public String beerAdvocateURL() {
+        def g = new ValidationTagLib()
+        g.message( code: "beerAdvocate.baseURL" ) + baPage
     }
 
     /*

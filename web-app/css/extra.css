@@ -10,3 +10,7 @@
     border: 0;
     background: white;
 }
+
+.paginateButtons a.step, .paginateButtons span.currentStep, .paginateButtons a.prevLink {
+    padding-right: 15px;
+}

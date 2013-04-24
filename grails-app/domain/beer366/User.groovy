@@ -3,6 +3,7 @@ package beer366
 import java.security.SecureRandom;
 
 class User {
+    static searchable = true
 
     transient springSecurityService
 

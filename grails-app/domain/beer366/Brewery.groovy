@@ -5,6 +5,7 @@ package beer366
  * A domain class describes the data object and it's mapping to the database
  */
 class Brewery {
+    static searchable = true
 
     /* Default (injected) attributes of GORM */
     //	Long	id

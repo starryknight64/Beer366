@@ -67,5 +67,6 @@ grails.project.dependency.resolution = {
         compile ":spring-security-ui:0.2"
         compile ":kickstart-with-bootstrap:0.9.0"
         compile ":cache:1.0.1"
+        compile ":searchable:0.6.4"
     }
 }
