@@ -57,6 +57,16 @@ class Beer {
         g.message( code: "beerAdvocate.baseURL" ) + baPage
     }
 
+    public BigDecimal averageRating() {
+        def drinkers = DrinkLog.findAllByBeer( this )?.user?.unique()
+        def rating = 0
+        drinkers?.each {
+            def userLogs = DrinkLog.findAllByUserAndBeer( it, this )
+            rating += userLogs?.rating?.sum() / (userLogs?.size() ?: 1)
+        }
+        new BigDecimal( rating / (drinkers?.size() ?: 1), new java.math.MathContext( 3 ) )
+    }
+
     /*
      * Methods of the Domain Class
      */

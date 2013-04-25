@@ -15,7 +15,6 @@
     <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon.png">
     <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-72x72.png"	sizes="72x72">
     <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-114x114.png"	sizes="114x114">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'extra.css')}"/>
 <%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
   <r:require modules="jquery"/>
   <r:require modules="${session.skin ? session.skin            : 'bootstrap'}"/>
@@ -65,6 +64,7 @@
 
 <!-- Included Javascript files and other resources -->
 <r:layoutResources />
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'extra.css')}"/>
 </body>
 
 </html>

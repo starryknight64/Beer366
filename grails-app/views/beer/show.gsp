@@ -1,5 +1,6 @@
 
 <%@ page import="beer366.Beer" %>
+<%@ page import="beer366.DrinkLog" %>
 <!doctype html>
 <html>
 
@@ -11,65 +12,33 @@
 </head>
 
 <body>
+  <h1>${beerInstance}</h1>
+  <hr>
+  <div class="btn-group">
+    <g:link class="btn" controller="drinkLog" action="create" id="${beerInstance.id}"><i class="icon-plus"></i> Log This</g:link>
+    <g:link class="btn" controller="cellar" action="create" id="${beerInstance.id}"><i class="icon-calendar"></i> Add to My Cellar</g:link>
+    <g:link class="btn" controller="beer" action="edit" id="${beerInstance.id}"><i class="icon-pencil"></i> Edit Beer</g:link>
+  </div>
 
-  <section id="show-beer" class="first">
-
-    <table class="table">
-      <tbody>
-
-        <tr class="prop">
-          <td valign="top" class="name"><g:message code="beer.abv.label" default="Abv" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: beerInstance, field: "abv")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.baRating.label" default="Ba Rating" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: beerInstance, field: "baRating")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.baPage.label" default="Ba Page" /></td>
-
-      <td valign="top" class="value"><a href="<g:message code='beerAdvocate.baseURL' />${beerInstance.baPage}"><g:message code="beerAdvocate.baseURL" />${fieldValue(bean: beerInstance, field: "baPage")}</a></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.name.label" default="Name" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: beerInstance, field: "name")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.lastUpdated.label" default="Last Updated" /></td>
-
-      <td valign="top" class="value"><g:formatDate date="${beerInstance?.lastUpdated}" /></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.brewery.label" default="Brewery" /></td>
-
-      <td valign="top" class="value"><g:link controller="brewery" action="show" id="${beerInstance?.brewery?.id}">${beerInstance?.brewery?.encodeAsHTML()}</g:link></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="beer.subStyle.label" default="Sub Style" /></td>
-
-      <td valign="top" class="value"><g:link controller="beerSubStyle" action="show" id="${beerInstance?.subStyle?.id}">${beerInstance?.subStyle?.encodeAsHTML()}</g:link></td>
-
-      </tr>
-
-      </tbody>
-    </table>
-  </section>
-
+  <div class="row">
+    <div class="span4">
+      <h3>Brewed By</h3>
+      <g:link controller="brewery" action="show" id="${beerInstance.brewery.id}">${beerInstance.brewery.fullName}</g:link>
+      <address>
+        ${"${beerInstance.brewery.city}, ${beerInstance.brewery.region}, ${beerInstance.brewery.country}"}
+      </address>
+    </div>
+    <div class="span4">
+      <h3>Style</h3>
+      <g:link controller="beerSubStyle" action="show" id="${beerInstance.subStyle.id}">${beerInstance.subStyle}</g:link> (${beerInstance.abv}% ABV)
+    </div>
+    <div class="span4">
+      <h3>Ratings</h3>
+      <p><b>BA:</b> <g:link uri="${beerInstance.beerAdvocateURL()}">${beerInstance.baRating}<i class="icon-share-alt"></i></g:link></p>
+      <p><b>Beer366:</b> ${beerInstance.averageRating()}</p>
+    </div>
+  </div>
+<b:renderDrinkLogsSection logs="${DrinkLog.findAllByBeer( beerInstance )}" name="Logged Drinks" inBeerPage="true" />
 </body>
 
 </html>

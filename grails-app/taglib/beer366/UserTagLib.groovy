@@ -43,6 +43,6 @@ class UserTagLib {
             willTrade += it.willTrade ?: 0
         }
         out << "<h2>${attrs.user}'s Cellar</h2>"
-        out << "<ul><li>${g.link( action:"list", controller:"cellar", userId:"${attrs.user.id}", "${total} beers in the cellar - Will trade ${willTrade}." )}</li></ul>"
+        out << "<ul><li>${g.link( action:"list", controller:"cellar", id:"${attrs.user.id}", "${total} beers in the cellar - Will trade ${willTrade}." )}</li></ul>"
     }
 }

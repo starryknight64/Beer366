@@ -137,43 +137,66 @@ class IndexTagLib {
     def renderDrinkLogsSection = { attrs ->
         out << """
             <h1>${attrs.name}</h1>
+        """
+        if( attrs.logs?.size() == 0 ) {
+            if( attrs?.inBeerPage ) {
+                out << "<ul>No one has logged this beer yet.</ul>"
+            } else {
+                out << "<ul>None</ul>"
+            }
+            return
+        }
+        out << """
             <table class="table table-bordered table-hover sortable">
               <thead>
                 <th>${g.message( [code:"allTotals.activity.date.label"] )}</th>
                 <th>${g.message( [code:"allTotals.activity.person.label"] )}</th>
+        """
+        if( !attrs?.inBeerPage ) {
+            out << """
                 <th>${g.message( [code:"allTotals.activity.beer.label"] )}</th>
                 <th>${g.message( [code:"allTotals.activity.brewery.label"] )}</th>
+            """
+        }
+        out << """
                 <th>${g.message( [code:"allTotals.activity.serving.label"] )}</th>
                 <th>${g.message( [code:"allTotals.activity.rating.label"] )}</th>
                 <th>${g.message( [code:"allTotals.activity.notes.label"] )}</th>
-              </thead>"""
+              </thead>
+        """
         def drinkLogs = attrs.logs == null ? (attrs.user ? DrinkLog.findAllByUser( attrs.user ) : DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) )) : attrs.logs
         drinkLogs.sort{ a,b -> b.date <=> a.date ?: b.id <=> a.id }.each { log ->
             out << """
                 <tr>
-                  <td>
-                    ${g.formatDate( [date:log.date, format:"MM/dd/yyyy"] )}
-                  </td>
-                  <td>
-                    ${g.link( action:"show", controller:"user", id:log.user.id ) {log.user}}
-                  </td>
-                  <td>
-                    ${g.link( action:"show", controller:"beer", id:log.beer.id ) {log.beer}}
-                  </td>
-                  <td>
-                    ${g.link( action:"show", controller:"brewery", id:log.beer.brewery.id ) {log.beer.brewery}}
-                  </td>
-                  <td>
-                    ${log.size}
-                  </td>
-                  <td>
-                    ${log.rating}
-                  </td>
-                  <td>
-                    ${log.notes ?: ""}
-                  </td>
-                </tr>
+                    <td>
+                        ${g.formatDate( [date:log.date, format:"MM/dd/yyyy"] )}
+                    </td>
+                    <td>
+                        ${g.link( action:"show", controller:"user", id:log.user.id ) {log.user}}
+                    </td>
+            """
+            if( !attrs?.inBeerPage ) {
+                out << """
+                    <td>
+                        ${g.link( action:"show", controller:"beer", id:log.beer.id ) {log.beer}}
+                    </td>
+                    <td>
+                        ${g.link( action:"show", controller:"brewery", id:log.beer.brewery.id ) {log.beer.brewery}}
+                    </td>
                 """
+            }
+            out << """
+                    <td>
+                        ${log.size}
+                    </td>
+                    <td>
+                        ${log.rating}
+                    </td>
+                    <td>
+                        ${log.notes ?: ""}
+                    </td>
+                </tr>
+            """
         }
         out << "</table>"
     }

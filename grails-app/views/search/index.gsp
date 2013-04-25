@@ -1,18 +1,14 @@
-
 <html>
-
   <head>
-    <title><g:meta name="app.name"/></title>
+    <title><g:meta name="app.name"/> | Search</title>
     <meta name="layout" content="kickstart" />
   </head>
 
   <body>
     <div class="body">
       <h1>Search Results</h1>
-
       <g:set var="haveQuery" value="${params.q?.trim()}" />
       <g:set var="haveResults" value="${searchResult?.results}" />
-
       <g:if test="${haveResults}">
         <div class="list">
           <table class="table table-hover">
@@ -29,9 +25,7 @@
         <div class="paginateButtons">
           <g:paginate params="[q: params.q]" total="${searchResult.total}"/>
         </div>
-
       </g:if>
-
       <br/>
       <div class="title">
         <span>
@@ -45,20 +39,14 @@
         </span>
       </div>
       <br/>
-
       <g:if test="${haveQuery && !haveResults && !parseException}">
         <p>Nothing matched your query - <strong>${params.q}</strong></p>
       </g:if>
       <g:if test="${searchResult?.suggestedQuery}">
         <p>Did you mean <g:link controller="searchable" action="index" params="[q: searchResult.suggestedQuery]">${StringQueryUtils.highlightTermDiffs(params.q.trim(), searchResult.suggestedQuery)}</g:link>?</p>
       </g:if>
-
       <g:if test="${parseException}">
         <p>Your query - <strong>${params.q}</strong> - is not valid.</p>
-        <p>Suggestions:</p>
-        <ul>
-          Fix the query: see <a href="http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html">Lucene query syntax</a> for examples
-        </ul>
       </g:if>
     </div>
   </body>

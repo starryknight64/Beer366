@@ -32,7 +32,7 @@ class Cellar {
     }
 
     static constraints = {
-        quantity min: 0
+        quantity min: 1
         willTrade min: 0, nullable: true, validator: { val, obj ->
             obj.val <= obj.quantity
         }
