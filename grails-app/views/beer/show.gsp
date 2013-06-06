@@ -30,12 +30,12 @@
     </div>
     <div class="span4">
       <h3>Style</h3>
-      <g:link controller="beerSubStyle" action="show" id="${beerInstance.subStyle.id}">${beerInstance.subStyle}</g:link> (${beerInstance.abv}% ABV)
+      <g:link controller="beerSubStyle" action="show" id="${beerInstance.subStyle.id}">${beerInstance.subStyle}</g:link> (<b:formatABV abv="${beerInstance.abv}" /> ABV)
     </div>
     <div class="span4">
       <h3>Ratings</h3>
       <p><b>BA:</b> <g:link uri="${beerInstance.beerAdvocateURL()}">${beerInstance.baRating}<i class="icon-share-alt"></i></g:link></p>
-      <p><b>Beer366:</b> ${beerInstance.averageRating()}</p>
+      <p><b>Beer366:</b> <g:formatNumber number="${beerInstance.averageRating()}" format="0.00" /></p>
     </div>
   </div>
 <b:renderDrinkLogsSection logs="${DrinkLog.findAllByBeer( beerInstance )}" name="Logged Drinks" inBeerPage="true" />

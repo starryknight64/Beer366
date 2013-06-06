@@ -1,4 +1,5 @@
 
+<%@ page import="beer366.Beer" %>
 <%@ page import="beer366.Cellar" %>
 <%@ page import="beer366.DrinkLog" %>
 <%@ page import="beer366.User" %>
@@ -58,7 +59,7 @@
 
         <td>${cellarInstance.notes}</td>
         <g:set var="currentUser" value="${User.get( sec.loggedInUserInfo(field:'id').toInteger() )}" />
-        <td>${DrinkLog.findAllByUser( currentUser )?.beer?.contains( cellarInstance.beer ) ? "X" : Cellar.findAllByUser( currentUser )?.beer?.contains( cellarInstance.beer ) ? "C" : ""}</td>
+        <td>${cellarInstance.beer.hasUserLogged(currentUser)}</td>
 
         </tr>
       </g:each>

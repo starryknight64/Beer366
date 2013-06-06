@@ -79,7 +79,7 @@ class IndexTagLib {
                     ${g.link( action:"show", controller:"brewery", id:beer.brewery.id ) {beer.brewery}}
                   </td>
                   <td>
-                    ${g.formatNumber( [number:beer.abv, format:"0.00"] )}%
+                    ${b.formatABV( abv:beer.abv )}
                   </td>
                 </tr>"""
         }

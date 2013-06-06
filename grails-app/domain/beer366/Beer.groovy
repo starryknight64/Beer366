@@ -67,6 +67,11 @@ class Beer {
         new BigDecimal( rating / (drinkers?.size() ?: 1), new java.math.MathContext( 3 ) )
     }
 
+    public String hasUserLogged( User user ) {
+        def loggedBeers = DrinkLog.findAllByUser( user )?.beer
+        loggedBeers?.contains( this ) ? "X" : loggedBeers?.contains( this ) ? "C" : ""
+    }
+
     /*
      * Methods of the Domain Class
      */

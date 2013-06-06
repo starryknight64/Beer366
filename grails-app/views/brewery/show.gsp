@@ -1,103 +1,73 @@
 
+<%@ page import="beer366.Beer" %>
 <%@ page import="beer366.Brewery" %>
+<%@ page import="beer366.User" %>
 <!doctype html>
 <html>
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
-  <g:set var="entityName" value="${message(code: 'brewery.label', default: 'Brewery')}" />
+<g:set var="entityName" value="${message(code: 'brewery.label', default: 'Brewery')}" />
   <title><g:message code="default.show.label" args="[entityName]" /></title>
 </head>
 
 <body>
+  <h1>${breweryInstance} <small>${breweryInstance.fullName}</small></h1>
+  <hr>
+  <div class="btn-group">
+    <g:link class="btn" controller="beer" action="create" breweryid="${breweryInstance.id}"><i class="icon-plus"></i> Add Beer</g:link>
+    <g:link class="btn" controller="brewery" action="edit" id="${breweryInstance.id}"><i class="icon-pencil"></i> Edit Brewery</g:link>
+  </div>
 
-  <section id="show-brewery" class="first">
+  <div class="row">
+    <div class="span4">
+      <address>
+        ${breweryInstance.street}<br>
+        ${breweryInstance.city}, ${breweryInstance.region} ${breweryInstance.postalCode}<br>
+        ${breweryInstance.country}
+      </address>
+    </div>
+    <div class="span4">
+      <g:if test="${breweryInstance.homepage}">
+        <i class="icon-home"></i><g:link url="${breweryInstance.homepage}">Website</g:link>
+      </g:if>
+    </div>
+  </div>
 
-    <table class="table">
-      <tbody>
+  <p>
+    <b>Notes: </b> ${breweryInstance.notes ?: ""}
+  </p>
 
-        <tr class="prop">
-          <td valign="top" class="name"><g:message code="brewery.street.label" default="Street" /></td>
+  <g:set var="breweryBeers" value="${Beer.findAllByBrewery(breweryInstance)}" />
+  <g:if test="${breweryBeers}">
+    <section id="beers">
+      <h2>Beers</h2>
 
-      <td valign="top" class="value">${fieldValue(bean: breweryInstance, field: "street")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.postalCode.label" default="Postal Code" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: breweryInstance, field: "postalCode")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.region.label" default="Region" /></td>
-
-      <td valign="top" class="value"><g:link controller="ISO_3166_2" action="show" id="${breweryInstance?.region?.id}">${breweryInstance?.region?.encodeAsHTML()}</g:link></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.homepage.label" default="Homepage" /></td>
-
-      <td valign="top" class="value"><a href="${breweryInstance.homepage}">${fieldValue(bean: breweryInstance, field: "homepage")}</a></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.notes.label" default="Notes" /></td>
-
-      <td valign="top" class="value">${breweryInstance.notes}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.name.label" default="Name" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: breweryInstance, field: "name")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.fullName.label" default="Full Name" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: breweryInstance, field: "fullName")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.lastUpdated.label" default="Last Updated" /></td>
-
-      <td valign="top" class="value"><g:formatDate date="${breweryInstance?.lastUpdated}" /></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.city.label" default="City" /></td>
-
-      <td valign="top" class="value">${fieldValue(bean: breweryInstance, field: "city")}</td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.country.label" default="Country" /></td>
-
-      <td valign="top" class="value"><g:link controller="ISO_3166_1" action="show" id="${breweryInstance?.country?.id}">${breweryInstance?.country?.encodeAsHTML()}</g:link></td>
-
-      </tr>
-
-      <tr class="prop">
-        <td valign="top" class="name"><g:message code="brewery.type.label" default="Type" /></td>
-
-      <td valign="top" class="value"><g:link controller="breweryType" action="show" id="${breweryInstance?.type?.id}">${breweryInstance?.type?.encodeAsHTML()}</g:link></td>
-
-      </tr>
-
-      </tbody>
-    </table>
-  </section>
-
+      <table class="table table-bordered sortable">
+        <thead>
+          <tr>
+            <th><g:message code="brewery.beer.name.label" /></th>
+        <th><g:message code="brewery.beer.style.label" /></th>
+        <th><g:message code="brewery.beer.abv.label" /></th>
+        <th><g:message code="brewery.beer.baRating.label" /></th>
+        <th><g:message code="brewery.beer.ivehad.label" /></th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:set var="currentUser" value="${User.get( sec.loggedInUserInfo(field:'id').toInteger() )}" />
+        <g:each in="${breweryBeers}">
+          <tr>
+            <td><g:link controller="Beer" action="show" id="${it.id}" >${it}</g:link></td>
+            <td><g:link controller="BeerSubStyle" action="show" id="${it.subStyle.id}" >${it.subStyle}</g:link></td>
+            <td><b:formatABV abv="${it.abv}" /></td>
+            <td>${it.baRating ?: "-"}</td>
+            <td>${it.hasUserLogged(currentUser)}</td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
+    </section>
+  </g:if>
 </body>
-
 </html>
