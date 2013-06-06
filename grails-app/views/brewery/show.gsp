@@ -36,7 +36,7 @@
   </div>
 
   <p>
-    <b>Notes: </b> ${breweryInstance.notes ?: ""}
+    ${breweryInstance.notes ? "<b>Notes: </b>${breweryInstance.notes}" : ""}
   </p>
 
   <g:set var="breweryBeers" value="${Beer.findAllByBrewery(breweryInstance)}" />

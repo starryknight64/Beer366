@@ -23,6 +23,10 @@ section {
     padding-right: 15px;
 }
 
+.navbar-fixed-top {
+    position: static;
+}
+
 .navbar-search {
     margin-top: 10px;
 }
