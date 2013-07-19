@@ -106,6 +106,16 @@ grails.plugins.springsecurity.ui.forgotPassword.emailFrom = "pdponzer@gmail.com"
 grails.plugins.springsecurity.ui.password.minLength = 3
 grails.plugins.springsecurity.ui.password.validationRegex = "(?i)[a-z0-9_]+"
 
+grails.plugins.springsecurity.useSecurityEventListener = true
+
+grails.plugins.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
+    beer366.User.withTransaction {
+        def user = beer366.User.get(appCtx.springSecurityService.principal.id)
+        user.lastLogin = new java.util.Date()
+        user.save()
+    }
+}
+
 grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugins.springsecurity.interceptUrlMap = [
    "/js/**":        ["permitAll"],

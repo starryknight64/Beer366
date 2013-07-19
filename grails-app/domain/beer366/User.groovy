@@ -22,6 +22,7 @@ class User {
     String firstName
     String lastName
     Date dateCreated
+    Date lastLogin
 
     //Services
     def beer366Service
@@ -33,6 +34,7 @@ class User {
         firstName blank: false
         lastName blank: false
         password blank: false
+        lastLogin nullable: true
     }
 
     static mapping = {

@@ -21,7 +21,7 @@ class IndexTagLib {
                   <th>${g.message( [code:"allTotals.summary.percent.label"] )}</th>
                   <th>${g.message( [code:"allTotals.summary.finishDate.label"] )}</th>
                 </thead>"""
-        User.list().each{ user ->
+        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThan( new Date().minus(30) ).each{ user ->
             def userDrinkLogCount = DrinkLog.countByUser( user )
             if( userDrinkLogCount > 0 ) {
                 def userUniqueBeerCount = beer366Service.userUniqueBeers( user ).get( user.id ).size()
