@@ -9,6 +9,36 @@ class BeerTagLib {
 
     def formatABV = { attrs ->
         def abv = attrs.abv
-        out << (abv ? "${g.formatNumber( [number:abv, format:'0.00'] )}%" : "")
+        out << (abv ? "${g.formatNumber( number:abv, format:'0.00' )}%" : "")
+    }
+
+    def renderBeers = { attrs ->
+        def beers = attrs.beers
+        out << """
+            <h2>Beers</h2>
+            <table class="table table-bordered sortable">
+                <thead>
+                    <tr>
+                        <th>${g.message( code:'brewery.beer.name.label' )}</th>
+                        <th>${g.message( code:'brewery.beer.style.label' )}</th>
+                        <th>${g.message( code:'brewery.beer.abv.label' )}</th>
+                        <th>${g.message( code:'brewery.beer.baRating.label' )}</th>
+                        <th>${g.message( code:'brewery.beer.ivehad.label' )}</th>
+                    </tr>
+                </thead>
+        """
+        def currentUser = User.get( sec.loggedInUserInfo(field:'id').toInteger() )
+        out << "<tbody>"
+        beers.each{ beer ->
+            out << "<tr>"
+            out << "<td>${g.link( action:"show", controller:"beer", id:beer.id, "${beer}" )}</td>"
+            out << "<td>${g.link( action:"show", controller:"BeerSubStyle", id:beer.subStyle.id, "${beer.subStyle}" )}</td>"
+            out << "<td>${b.formatABV( abv:beer.abv )}</td>"
+            out << "<td>${beer.baRating ? "<a href='${beer.beerAdvocateURL()}'>${beer.baRating}<i class='icon-share-alt'></i></a>" : "-"}</td>"
+            out << "<td>${beer.hasUserLogged(currentUser)}</td>"
+            out << "</tr>"
+        }
+        out << "</tbody>"
+        out << "</table>"
     }
 }
