@@ -11,8 +11,9 @@ $(document).ready(function() {
                     $.each(data, function(key, val) {
                         regions += "<option value='" + key + "'>" + val.name + "</option>\n";
                     });
-                    $("#region").html(regions);
+                    $("select#region").html(regions);
                     $("label[for=region]").parent().show();
+                    $("select#region").chosen();
                 } else {
                     $("label[for=region]").parent().hide();
                 }
@@ -28,4 +29,6 @@ $(document).ready(function() {
     });
 
     countryUpdated();
+
+    $("select#country").chosen();
 });
