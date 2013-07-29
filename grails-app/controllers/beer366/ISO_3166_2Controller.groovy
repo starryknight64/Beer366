@@ -21,7 +21,12 @@ class ISO_3166_2Controller {
     }
 
     def regions() {
-        render ISO_3166_2.findAllByCountry( ISO_3166_1.get(params.countryid) ) as JSON
+        def country = ISO_3166_1.get(params.countryid)
+        if( country ) {
+            render ISO_3166_2.findAllByCountry( country ) as JSON
+        }
+        def empty = []
+        render empty as JSON
     }
 
     def create() {
