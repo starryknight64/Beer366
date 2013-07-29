@@ -25,7 +25,7 @@
       <h3>Brewed By</h3>
       <g:link controller="brewery" action="show" id="${beerInstance.brewery.id}">${beerInstance.brewery.fullName}</g:link>
       <address>
-        ${"${beerInstance.brewery.city}, ${beerInstance.brewery.region}, ${beerInstance.brewery.country}"}
+        ${beerInstance.brewery.city}${beerInstance.brewery.region ? ", ${beerInstance.brewery.region}" : ""}, ${beerInstance.brewery.country}
       </address>
     </div>
     <div class="span4">

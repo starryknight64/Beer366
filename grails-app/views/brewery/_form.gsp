@@ -55,7 +55,7 @@
   <div class="control-group fieldcontain ${hasErrors(bean: breweryInstance, field: 'region', 'error')} ">
     <label for="region" class="control-label"><g:message code="brewery.region.label" default="Region" /></label>
     <div class="controls">
-      <g:select id="region" name="region.id" from="${beer366.ISO_3166_2.list()}" optionKey="id" value="${breweryInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
+      <g:select id="region" name="region.id" from="${[]}" optionKey="id" value="${breweryInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
       <span class="help-inline">${hasErrors(bean: breweryInstance, field: 'region', 'error')}</span>
     </div>
   </div>
