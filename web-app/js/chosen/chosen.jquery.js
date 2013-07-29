@@ -455,14 +455,14 @@
       if (window.navigator.appName === "Microsoft Internet Explorer") {
         return document.documentMode >= 8;
       }
-      if (/iP(od|hone)/i.test(window.navigator.userAgent)) {
+      /*if (/iP(od|hone)/i.test(window.navigator.userAgent)) {
         return false;
       }
       if (/Android/i.test(window.navigator.userAgent)) {
         if (/Mobile/i.test(window.navigator.userAgent)) {
           return false;
         }
-      }
+      }*/
       return true;
     };
 
