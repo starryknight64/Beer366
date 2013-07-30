@@ -1,6 +1,7 @@
 package beer366
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 
 /**
  * BeerSubStyleController
@@ -19,6 +20,17 @@ class BeerSubStyleController {
         [beerSubStyleInstanceList: BeerSubStyle.list(params), beerSubStyleInstanceTotal: BeerSubStyle.count()]
     }
 
+    def subStyles() {
+        def styleID = params.styleid
+        def m = []
+        if( styleID == "all" ) {
+            m = BeerSubStyle.list()
+        } else {
+            m = BeerSubStyle.findAllByStyle( BeerStyle.get(styleID) )
+        }
+        render m as JSON
+    }
+
     def create() {
         [beerSubStyleInstance: new BeerSubStyle(params)]
     }
@@ -30,14 +42,14 @@ class BeerSubStyleController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), beerSubStyleInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), beerSubStyleInstance.id])
         redirect(action: "show", id: beerSubStyleInstance.id)
     }
 
     def show() {
         def beerSubStyleInstance = BeerSubStyle.get(params.id)
         if (!beerSubStyleInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
             redirect(action: "list")
             return
         }
@@ -68,7 +80,7 @@ class BeerSubStyleController {
             def version = params.version.toLong()
             if (beerSubStyleInstance.version > version) {
                 beerSubStyleInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'beerSubStyle.label', default: 'BeerSubStyle')] as Object[],
+                    [message(code: 'beerSubStyle.label', default: 'BeerSubStyle')] as Object[],
                           "Another user has updated this BeerSubStyle while you were editing")
                 render(view: "edit", model: [beerSubStyleInstance: beerSubStyleInstance])
                 return
@@ -82,25 +94,25 @@ class BeerSubStyleController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), beerSubStyleInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), beerSubStyleInstance.id])
         redirect(action: "show", id: beerSubStyleInstance.id)
     }
 
     def delete() {
         def beerSubStyleInstance = BeerSubStyle.get(params.id)
         if (!beerSubStyleInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
             redirect(action: "list")
             return
         }
 
         try {
             beerSubStyleInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'beerSubStyle.label', default: 'BeerSubStyle'), params.id])
             redirect(action: "show", id: params.id)
         }
     }
