@@ -40,7 +40,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: beerInstance, field: 'abv', 'error')} ">
   <label for="abv" class="control-label"><g:message code="beer.abv.label" default="Abv" /></label>
   <div class="controls">
-    <g:field type="number" name="abv" step="0.01" min="0.0" value="${beerInstance.abv}"/>
+    <g:field type="number" name="abv" step="0.01" min="0.0" value="${beerInstance?.abv}"/>
     <span class="help-inline">${hasErrors(bean: beerInstance, field: 'abv', 'error')}</span>
   </div>
 </div>
@@ -48,7 +48,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: beerInstance, field: 'baRating', 'error')} ">
   <label for="baRating" class="control-label"><g:message code="beer.baRating.label" default="Ba Rating" /></label>
   <div class="controls">
-    <g:select name="baRating" from="${0..100}" class="range" value="${fieldValue(bean: beerInstance, field: 'baRating')}" noSelection="['': '']"/>
+    <g:field type="number" name="baRating" step="1" min="0" max="100" value="${beerInstance?.baRating}" noSelection="['': '']"/>
     <span class="help-inline">${hasErrors(bean: beerInstance, field: 'baRating', 'error')}</span>
   </div>
 </div>

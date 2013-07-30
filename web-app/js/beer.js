@@ -50,5 +50,6 @@ $(document).ready(function() {
 
     familyUpdated();
 
+    $("select#brewery").chosen();
     $("select#subStyle").chosen();
 });
