@@ -1,3 +1,7 @@
+.nowrap {
+    white-space: nowrap;
+}
+
 .nav {
     padding-top: 5px;
 }

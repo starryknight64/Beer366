@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />
   <g:javascript src="beer.js" />
-  <title><g:message code="default.edit.label" args="[entityName]" /></title>
+  <title><g:message code="default.edit.label" args="[entityName]" /> - ${beerInstance.brewery}: ${beerInstance}</title>
 </head>
 
 <body>

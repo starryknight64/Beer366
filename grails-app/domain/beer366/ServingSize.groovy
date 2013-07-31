@@ -23,7 +23,7 @@ class ServingSize {
 
     static mapping = {
         name sqlType: "text"
-        sort "name"
+        sort "ml"
     }
 
     static constraints = {
@@ -36,6 +36,6 @@ class ServingSize {
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
-        return "${name}";
+        return "${name} (${ml} mL)";
     }
 }

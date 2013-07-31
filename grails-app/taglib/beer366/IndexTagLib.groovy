@@ -149,9 +149,14 @@ class IndexTagLib {
         out << """
             <table class="table table-bordered table-hover sortable">
               <thead>
-                <th>${g.message( [code:"allTotals.activity.date.label"] )}</th>
-                <th>${g.message( [code:"allTotals.activity.person.label"] )}</th>
         """
+        if( attrs?.showEditButton ) {
+            out << "<th class='sorttable_nosort'></th>"
+        }
+        out << "<th>${g.message( [code:"allTotals.activity.date.label"] )}</th>"
+        if( attrs?.showPerson ) {
+            out << "<th>${g.message( [code:"allTotals.activity.person.label"] )}</th>"
+        }
         if( !attrs?.inBeerPage ) {
             out << """
                 <th>${g.message( [code:"allTotals.activity.beer.label"] )}</th>
@@ -166,15 +171,26 @@ class IndexTagLib {
         """
         def drinkLogs = attrs.logs == null ? (attrs.user ? DrinkLog.findAllByUser( attrs.user ) : DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) )) : attrs.logs
         drinkLogs.sort{ a,b -> b.date <=> a.date ?: b.id <=> a.id }.each { log ->
+            out << "<tr>"
+            if( attrs?.showEditButton ) {
+                out << """
+                    <td>
+                        ${g.link( action:"edit", controller:"DrinkLog", id:log.id ) {"<img src'${resource(dir: 'images', file: 'pencil.png')}' alt='Grails'/>"}}
+                    </td>
+                """
+            }
             out << """
-                <tr>
                     <td>
                         ${g.formatDate( [date:log.date, format:"MM/dd/yyyy"] )}
                     </td>
-                    <td>
-                        ${g.link( action:"show", controller:"user", id:log.user.id ) {log.user}}
-                    </td>
             """
+            if( attrs?.showPerson ) {
+                out << """
+                        <td>
+                            ${g.link( action:"show", controller:"user", id:log.user.id ) {log.user}}
+                        </td>
+                """
+            }
             if( !attrs?.inBeerPage ) {
                 out << """
                     <td>
@@ -186,8 +202,8 @@ class IndexTagLib {
                 """
             }
             out << """
-                    <td>
-                        ${log.size}
+                    <td class="nowrap" sorttable_customkey="${log.size.ml}">
+                        ${log.size.name}
                     </td>
                     <td>
                         ${log.rating}

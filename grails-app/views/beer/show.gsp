@@ -38,7 +38,7 @@
       <p><b>Beer366:</b> <g:formatNumber number="${beerInstance.averageRating()}" format="0.00" /></p>
     </div>
   </div>
-<b:renderDrinkLogsSection logs="${DrinkLog.findAllByBeer( beerInstance )}" name="Logged Drinks" inBeerPage="true" />
+<b:renderDrinkLogsSection logs="${DrinkLog.findAllByBeer( beerInstance )}" name="Logged Drinks" inBeerPage="${true}" showPerson="${true}" />
 </body>
 
 </html>

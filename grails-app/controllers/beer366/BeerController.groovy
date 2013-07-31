@@ -1,6 +1,7 @@
 package beer366
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 
 /**
  * BeerController
@@ -17,6 +18,11 @@ class BeerController {
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [beerInstanceList: Beer.list(params), beerInstanceTotal: Beer.count()]
+    }
+
+    def breweryBeers() {
+        def m = Beer.findAllByBrewery( Brewery.get( params.breweryid ) )
+        render m as JSON
     }
 
     def create() {
