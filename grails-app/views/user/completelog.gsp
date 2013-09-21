@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <b:renderDrinkLogsSection user="${userInstance}" name="My Logged Drinks" showEditButton="${true}" showPerson="${false}" />
+  <b:renderDrinkLogsSection user="${userInstance}" name="My Logged Drinks" showEditButton="${true}" showPerson="${false}" inCompleteLogPage="${true}" />
 </body>
 
 </html>

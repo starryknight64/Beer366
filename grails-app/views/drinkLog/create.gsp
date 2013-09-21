@@ -13,7 +13,9 @@
 </head>
 
 <body>
-
+  <div class="page-header">
+    <h1>Log Drink</h1>
+  </div>
   <section id="create-drinkLog" class="first">
 
     <g:hasErrors bean="${drinkLogInstance}">

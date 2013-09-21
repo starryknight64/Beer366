@@ -22,11 +22,7 @@
   <title><g:meta name="app.name"/> | All Countries</title>
 </head>
 <body>
-  <div class="page-header">
-    <h1>All Countries</h1>
-    <div id="bla"></div>
-  </div>
-  <div id="chart_div"></div>
-
+<b:renderBreadcrumbs params="${params}" />
+<div id="chart_div"></div>
 </body>
 </html>

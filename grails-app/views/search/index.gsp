@@ -6,7 +6,9 @@
 
   <body>
     <div class="body">
-      <h1>Search Results</h1>
+      <div class="page-header">
+        <h1>Search Results</h1>
+      </div>
       <g:set var="haveQuery" value="${params.q?.trim()}" />
       <g:set var="haveResults" value="${searchResult?.results}" />
       <g:if test="${haveResults}">
@@ -16,7 +18,7 @@
             <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}" />
             <g:each in="${searchResult.results}" status="i" var="result">
               <tr>
-                <b:renderSearchResultRow object="${result}" />
+              <b:renderSearchResultRow object="${result}" />
               </tr>
             </g:each>
             </tbody>

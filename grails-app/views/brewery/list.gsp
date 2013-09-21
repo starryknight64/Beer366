@@ -10,7 +10,9 @@
 </head>
 
 <body>
-
+  <div class="page-header">
+    <h1>All Breweries</h1>
+  </div>
   <section id="list-brewery" class="first">
 
     <table class="table table-bordered">

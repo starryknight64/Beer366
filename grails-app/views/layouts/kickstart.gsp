@@ -43,7 +43,7 @@
   <g:render template="/layouts/header"/>
 </g:else>
 
-<div id="Content" class="container">
+<div class="container">
   <g:layoutBody />
   <g:pageProperty name="page.body" />
 </div>

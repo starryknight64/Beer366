@@ -13,7 +13,9 @@
 </head>
 
 <body>
-
+  <div class="page-header">
+    <h1>Add Beer</h1>
+  </div>
   <section id="create-beer" class="first">
 
     <g:hasErrors bean="${beerInstance}">

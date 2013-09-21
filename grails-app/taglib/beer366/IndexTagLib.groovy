@@ -135,11 +135,18 @@ class IndexTagLib {
     }
 
     def renderDrinkLogsSection = { attrs ->
-        out << """
-            <h1>${attrs.name}</h1>
-        """
+        if( attrs.inCompleteLogPage ) {
+            out << """
+                <div class="page-header">
+                    <h1>${attrs.name}</h1>
+                </div>
+                """
+        } else {
+            out << "<h1>${attrs.name}</h1>"
+        }
+
         if( attrs.logs?.size() == 0 ) {
-            if( attrs?.inBeerPage ) {
+            if( attrs.inBeerPage ) {
                 out << "<ul>No one has logged this beer yet.</ul>"
             } else {
                 out << "<ul>None</ul>"
