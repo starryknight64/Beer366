@@ -34,7 +34,7 @@
     </div>
     <div class="span4">
       <h3>Ratings</h3>
-      <p><b>BA:</b> <g:link uri="${beerInstance.beerAdvocateURL()}">${beerInstance.baRating}<i class="icon-share-alt"></i></g:link></p>
+      <p><b>BA:</b> <a href="${beerInstance.beerAdvocateURL()}">${beerInstance.baRating}<i class="icon-share-alt"></i></a></p>
       <p><b>Beer366:</b> <g:formatNumber number="${beerInstance.averageRating()}" format="0.00" /></p>
     </div>
   </div>
