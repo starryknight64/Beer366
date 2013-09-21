@@ -21,6 +21,7 @@ class Beer {
     Float abv
     Integer baRating
     String baPage
+    String notes
     //    Date updated
 
     //	static belongsTo	= []	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
@@ -31,6 +32,7 @@ class Beer {
     static mapping = {
         baPage sqlType: "text"
         name sqlType: "text"
+        notes sqlType: "text"
         sort "name"
         abv sqlType: "decimal(4,2)"
     }
@@ -42,6 +44,7 @@ class Beer {
             !obj.baPage || (obj.baPage ==~ /\d+\/\d+/ && Beer.findByBaPage( obj.baPage ) == null)
         }
         name blank: false
+        notes nullable: true
         lastUpdated nullable: true
     }
 

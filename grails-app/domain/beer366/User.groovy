@@ -23,6 +23,7 @@ class User {
     String lastName
     Date dateCreated
     Date lastLogin
+    String gender
 
     //Services
     def beer366Service
@@ -35,6 +36,7 @@ class User {
         lastName blank: false
         password blank: false
         lastLogin nullable: true
+        gender inList: ["M","F"]
     }
 
     static mapping = {
