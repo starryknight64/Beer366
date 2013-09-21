@@ -30,14 +30,14 @@ class ISO_3166_1Controller {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), ISO_3166_1Instance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), ISO_3166_1Instance.id])
         redirect(action: "show", id: ISO_3166_1Instance.id)
     }
 
     def show() {
         def ISO_3166_1Instance = ISO_3166_1.get(params.id)
         if (!ISO_3166_1Instance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
             redirect(action: "list")
             return
         }
@@ -68,7 +68,7 @@ class ISO_3166_1Controller {
             def version = params.version.toLong()
             if (ISO_3166_1Instance.version > version) {
                 ISO_3166_1Instance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1')] as Object[],
+                    [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1')] as Object[],
                           "Another user has updated this ISO_3166_1 while you were editing")
                 render(view: "edit", model: [ISO_3166_1Instance: ISO_3166_1Instance])
                 return
@@ -82,25 +82,25 @@ class ISO_3166_1Controller {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), ISO_3166_1Instance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), ISO_3166_1Instance.id])
         redirect(action: "show", id: ISO_3166_1Instance.id)
     }
 
     def delete() {
         def ISO_3166_1Instance = ISO_3166_1.get(params.id)
         if (!ISO_3166_1Instance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
             redirect(action: "list")
             return
         }
 
         try {
             ISO_3166_1Instance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'ISO_3166_1.label', default: 'ISO_3166_1'), params.id])
             redirect(action: "show", id: params.id)
         }
     }

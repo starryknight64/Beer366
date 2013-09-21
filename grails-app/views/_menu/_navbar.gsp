@@ -60,7 +60,7 @@ ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
             </li>
           </sec:ifLoggedIn>
           <li><a href="${createLink(uri: '/brewery/list')}">Breweries</a></li>
-          <li><a href="${createLink(uri: '/')}">Locations</a></li>
+          <li><a href="${createLink(uri: '/brewery/locations')}">Locations</a></li>
           <li><a href="${createLink(uri: '/beerFamily/list')}">Styles</a></li>
         </ul>
         <g:render template="/_menu/search"/>

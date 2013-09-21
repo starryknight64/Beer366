@@ -39,6 +39,11 @@ class ISO_3166_1 {
     /*
      * Methods of the Domain Class
      */
+
+    public Boolean isUSA() {
+        return alpha2 == "US"
+    }
+
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
         return "${name}";
