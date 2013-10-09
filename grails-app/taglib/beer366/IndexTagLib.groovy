@@ -131,7 +131,7 @@ class IndexTagLib {
         } else {
             drinkLogs = DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) )
         }
-        out << b.renderDrinkLogsSection( name: "Recent Activity", logs: drinkLogs, user: attrs?.user )
+        out << b.renderDrinkLogsSection( name: "Recent Activity", logs: drinkLogs, user: attrs?.user, showPerson: attrs?.user == null )
     }
 
     def renderDrinkLogsSection = { attrs ->
