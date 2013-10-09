@@ -9,8 +9,6 @@ package beer366
 class SearchController {
     def searchableService
 
-    static scaffold = true
-
     def index = {
         if (!params.q?.trim()) {
             redirect(controller: "home", action: "index")
