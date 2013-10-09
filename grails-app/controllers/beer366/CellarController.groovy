@@ -21,7 +21,7 @@ class CellarController {
         if( params.max ) {
             params.remove( "max" )
         }
-        [cellarInstanceList: Cellar.findAllByUser( user, params )]
+        [cellarInstanceList: Cellar.findAllByUser( user, params ), cellarUser: user]
     }
 
     def create() {
