@@ -21,7 +21,7 @@ class IndexTagLib {
                   <th>${g.message( [code:"allTotals.summary.percent.label"] )}</th>
                   <th>${g.message( [code:"allTotals.summary.finishDate.label"] )}</th>
                 </thead>"""
-        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThan( new Date().minus(30) ).each{ user ->
+        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThanEquals( new Date().minus(30) ).each{ user ->
             def userDrinkLogCount = DrinkLog.countByUser( user )
             if( userDrinkLogCount > 0 ) {
                 def userUniqueBeerCount = beer366Service.userUniqueBeers( user ).get( user.id ).size()
@@ -100,7 +100,7 @@ class IndexTagLib {
 
         def userToUniqueBeerMap = beer366Service.userUniqueBeers( null )
         def userToGlobalUniqueBeerMap = beer366Service.userGlobalUniqueBeers( null )
-        User.list().each{ user ->
+        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThanEquals( new Date().minus(30) ).each{ user ->
             def userUniqueBeerCount = userToUniqueBeerMap.get( user.id )?.size() ?: 0
             if( userUniqueBeerCount > 0 ) {
                 def userGlobalUniqueBeerCount = userToGlobalUniqueBeerMap.get( user.id )?.size() ?: 0

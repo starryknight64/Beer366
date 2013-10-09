@@ -2,6 +2,7 @@ package beer366
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.converters.JSON
+import beer366.PageableList
 
 /**
  * BreweryController
@@ -17,7 +18,43 @@ class BreweryController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [breweryInstanceList: Brewery.list(params), breweryInstanceTotal: Brewery.count()]
+        def breweries = []
+        def title = "All Breweries"
+        def otherParams = [sort: params.sort, order: params.order]
+        if( params.country ) {
+            otherParams.country = params.country
+            def country = ISO_3166_1.get( params.country )
+            if( params.city ) {
+                otherParams.city = params.city
+                breweries = new PageableList( Brewery.findAllByCountryAndCity( country, params.city, otherParams ) ).getNextPage( params )
+                title = "${params.city} Breweries"
+            } else {
+                breweries = new PageableList( Brewery.findAllByCountry( country, otherParams ) ).getNextPage( params )
+                title = "${country.name} Breweries"
+            }
+        } else if( params.state ) {
+            otherParams.state = params.state
+            def state = ISO_3166_2.get( params.state )
+            if( params.city ) {
+                otherParams.city = params.city
+                breweries = new PageableList( Brewery.findAllByRegionAndCity( state, params.city, otherParams ) ).getNextPage( params )
+                title = "${params.city}, ${state.code.replace('US-','')} Breweries"
+            } else {
+                breweries = new PageableList( Brewery.findAllByRegion( state, otherParams ) ).getNextPage( params )
+                title = "${state.name} Breweries"
+            }
+        } else if( params.city ) {
+            otherParams.city = params.city
+            breweries = new PageableList( Brewery.findAllByCity( params.city, otherParams ) ).getNextPage( params )
+            title = "${params.city} Breweries"
+        } else {
+            breweries = Brewery.list(params)
+        }
+
+        if( breweries.getTotalCount() == 1 ) {
+            redirect(action: "show", id: breweries[0].id)
+        }
+        [breweryInstanceList: breweries, breweryInstanceTotal: breweries.getTotalCount(), pageTitle: title, params: otherParams]
     }
 
     def locations() {
@@ -40,8 +77,8 @@ class BreweryController {
 
     def locationCount() {
         def m = [   "places": [],
-                    "urls": [],
-                    "region": "world"]
+                "urls": [],
+                "region": "world"]
         if( params.state ) {
             m.displayMode = "markers"
             def state = ISO_3166_2.get( params.state )
@@ -132,7 +169,7 @@ class BreweryController {
             if (breweryInstance.version > version) {
                 breweryInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                     [message(code: 'brewery.label', default: 'Brewery')] as Object[],
-                          "Another user has updated this Brewery while you were editing")
+                      "Another user has updated this Brewery while you were editing")
                 render(view: "edit", model: [breweryInstance: breweryInstance])
                 return
             }

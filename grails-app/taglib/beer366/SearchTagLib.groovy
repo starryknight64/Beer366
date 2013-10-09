@@ -21,7 +21,7 @@ class SearchTagLib {
             out << """
                 <b>${g.link( action:"show", controller:"beer", id:beer.id, "[${beer.subStyle}] ${beer}" )}</b><br>
                 <ul>
-                    <i>${beer.baPage ? "<a href='${beer.beerAdvocateURL()}'>${beer.beerAdvocateURL()}</a>" : ""}</i>${beer.baPage ? "<br>" : ""}
+                    ${beer.baPage ? "<i><a href='${beer.beerAdvocateURL()}'>${beer.beerAdvocateURL()}</a></i><br>" : ""}
                     <i>${beer.brewery}</i>
                 </ul>
             """

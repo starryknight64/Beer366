@@ -11,7 +11,7 @@
 
 <body>
   <div class="page-header">
-    <h1>All Breweries</h1>
+    <h1>${pageTitle} (${breweryInstanceTotal})</h1>
   </div>
   <section id="list-brewery" class="first">
 
@@ -19,11 +19,11 @@
       <thead>
         <tr>
 
-      <g:sortableColumn property="name" title="${message(code: 'brewery.list.name.label', default: 'Name')}" />
+      <g:sortableColumn property="name" params="${params}" title="${message(code: 'brewery.list.name.label', default: 'Name')}" />
 
-      <g:sortableColumn property="type" title="${message(code: 'brewery.list.type.label', default: 'Brewery Type')}" />
+      <g:sortableColumn property="type" params="${params}" title="${message(code: 'brewery.list.type.label', default: 'Brewery Type')}" />
 
-      <g:sortableColumn property="homepage" title="${message(code: 'brewery.list.homepage.label', default: 'Homepage')}" />
+      <g:sortableColumn property="homepage" params="${params}" title="${message(code: 'brewery.list.homepage.label', default: 'Homepage')}" />
 
       </tr>
       </thead>
@@ -44,7 +44,7 @@
       </tbody>
     </table>
     <div class="pagination">
-      <bs:paginate total="${breweryInstanceTotal}" />
+      <bs:paginate params="${params}" total="${breweryInstanceTotal}" />
     </div>
   </section>
 
