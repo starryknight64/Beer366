@@ -11,6 +11,15 @@ class Beer366Service {
 //    def sessionFactory
     def sqlService
 
+    public String cleanBAPage( String baPage ) {
+        String url = baPage?.toLowerCase()?.replace( beerAdvocateBaseURL(), "" )?.trim()
+        def matcher = url =~ /.*?(\d+\/\d+).*/
+        if( matcher.matches() ) {
+            url = matcher.group(1)
+        }
+        return url
+    }
+
     def beerAdvocateBaseURL() {
         "http://beeradvocate.com/beer/profile/"
     }

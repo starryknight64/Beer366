@@ -43,16 +43,16 @@ class Beer {
         abv scale: 2, min: 0.00f, nullable: true
         baRating nullable: true, range: 0..100
         baPage nullable: true, validator: { val, obj ->
-            !obj.baPage || (obj.baPage ==~ /\d+\/\d+/ && Beer.findByBaPage( obj.baPage ) == null)
+            if( !obj.baPage ) {
+                return true
+            }
+            obj.baPage = new Beer366Service().cleanBAPage( obj.baPage ) ?: null
+            def beer = Beer.findByBaPage( obj.baPage )
+            obj.baPage ==~ /\d+\/\d+/ && (beer?.id == obj.id || beer == null)
         }
         name blank: false
         notes nullable: true
         lastUpdated nullable: true
-    }
-
-    def beforeValidate() {
-        def url = baPage?.toLowerCase()?.replace( beer366Service.beerAdvocateBaseURL(), "" )?.trim()
-        baPage = url == "" ? null : url
     }
 
     public String beerAdvocateURL() {
