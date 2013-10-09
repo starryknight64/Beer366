@@ -11,6 +11,10 @@ class Beer366Service {
 //    def sessionFactory
     def sqlService
 
+    def beerAdvocateBaseURL() {
+        "http://beeradvocate.com/beer/profile/"
+    }
+
     def userUniqueBeers( User user ) {
         def userID = user?.id ?: 0
         def sql = sqlService.getSql()//new Sql(sessionFactory.currentSession.connection())
