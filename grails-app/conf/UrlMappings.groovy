@@ -19,19 +19,19 @@ class UrlMappings {
         "/beer/$sanitizedName?" {
             controller='beer'
             constraints {
-                sanitizedName(matches:/^(?!^list$).+$/)
+                sanitizedName(matches:/^(?!^(list|create|save|show|edit|update|delete|breweryBeers)$).+$/)
             }
         }
         "/brewery/$sanitizedName?" {
             controller='brewery'
             constraints {
-                sanitizedName(matches:/^(?!^list$).+$/)
+                sanitizedName(matches:/^(?!^(list|create|save|show|edit|update|delete|locations|locationCount)$).+$/)
             }
         }
         "/user/$sanitizedUsername?" {
             controller='user'
             constraints {
-                sanitizedUsername(matches:/^(?!^list$).+$/)
+                sanitizedUsername(matches:/^(?!^(list|create|save|show|edit|update|delete|totals|uniques|completelog|info)$).+$/)
             }
         }
         //        "/beer/$sanitizedName?"{
