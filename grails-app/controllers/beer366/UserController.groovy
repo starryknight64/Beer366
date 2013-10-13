@@ -13,7 +13,16 @@ class UserController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        if( params.sanitizedUsername ) {
+            def user = User.findBySanitizedUsername( params.sanitizedUsername )
+            if( user ) {
+                redirect(action: "show", params: [id: user.id])
+            } else {
+                redirect(controller: "search", params: [q: params.sanitizedUsername])
+            }
+        } else {
+            redirect(action: "list", params: params)
+        }
     }
 
     def list() {

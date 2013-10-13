@@ -13,7 +13,16 @@ class BreweryController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        if( params.sanitizedName ) {
+            def brewery = Brewery.findBySanitizedName( params.sanitizedName )
+            if( brewery ) {
+                redirect(action: "show", params: [id: brewery.id])
+            } else {
+                redirect(controller: "search", params: [q: params.sanitizedName])
+            }
+        } else {
+            redirect(action: "list", params: params)
+        }
     }
 
     def list() {

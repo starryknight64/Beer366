@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <h1>${breweryInstance} <small>${breweryInstance.fullName}</small></h1>
+  <h1><g:link controller="beer" action="show" id="${breweryInstance.id}">${breweryInstance}</g:link> <small>${breweryInstance.fullName}</small></h1>
   <hr>
   <div class="btn-group">
     <g:link class="btn" controller="beer" action="create" breweryid="${breweryInstance.id}"><i class="icon-plus"></i> Add Beer</g:link>

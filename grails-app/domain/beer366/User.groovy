@@ -25,6 +25,9 @@ class User {
     Date lastLogin
     String gender
 
+    //Friendly URL
+    String sanitizedUsername
+
     //Services
     def beer366Service
 
@@ -48,6 +51,12 @@ class User {
         firstName sqlType: "text"
         lastName sqlType: "text"
         sort "username"
+    }
+
+    def beforeValidate() {
+        if( !sanitizedUsername || (username && sanitizedUsername != username?.asFriendlyUrl()) ) {
+            sanitizedUsername = username?.asFriendlyUrl()
+        }
     }
 
     List<Beer> getUniqueBeers() {

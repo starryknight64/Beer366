@@ -7,6 +7,7 @@ class BootStrap {
 
     transient springSecurityService
     def sessionFactory
+    def sanitizeService
 
     def init = { servletContext ->
         if( User.list().size() > 0 ) {
@@ -15,6 +16,7 @@ class BootStrap {
             def testUser = User.findByUsername( "user" ) ?: new User(username: "user", email: "user@beer366.com", enabled: true, password: "password").save(flush: true)
             new UserRole(user: adminUser, role: adminRole).save( flush: true )
         }
+        sanitizeService.sanitizeAll()
     }
 
     def destroy = {

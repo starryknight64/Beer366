@@ -26,6 +26,8 @@ class Brewery {
     String notes
     //    Date updated
 
+    String sanitizedName
+
     //	static belongsTo	= []	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
     //	static hasOne		= []	// tells GORM to associate another domain object as an owner in a 1-1 mapping
     //	static hasMany		= []	// tells GORM to associate other domain objects for a 1-n or n-m mapping
@@ -40,6 +42,7 @@ class Brewery {
         homepage sqlType: "text"
         notes sqlType: "text"
         sort "name"
+        sanitizedName sqlType: "text"
     }
 
     static constraints = {
@@ -57,6 +60,9 @@ class Brewery {
         homepage = homepage?.toLowerCase()?.trim()
         if( homepage && !homepage?.startsWith("http://") && !homepage?.startsWith("https://") ) {
             homepage = "http://${homepage}"
+        }
+        if( !sanitizedName || (name && sanitizedName != name?.asFriendlyUrl()) ) {
+            sanitizedName = name?.asFriendlyUrl()
         }
     }
 

@@ -12,7 +12,16 @@ class BeerController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        if( params.sanitizedName ) {
+            def beer = Beer.findBySanitizedName( params.sanitizedName )
+            if( beer ) {
+                redirect(action: "show", params: [id: beer.id])
+            } else {
+                redirect(controller: "search", params: [q: params.sanitizedName])
+            }
+        } else {
+            redirect(action: "list", params: params)
+        }
     }
 
     def list() {
@@ -36,14 +45,14 @@ class BeerController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'beer.label', default: 'Beer'), beerInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'beer.label', default: 'Beer'), beerInstance.id])
         redirect(action: "show", id: beerInstance.id)
     }
 
     def show() {
         def beerInstance = Beer.get(params.id)
         if (!beerInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
             redirect(action: "list")
             return
         }
@@ -74,7 +83,7 @@ class BeerController {
             def version = params.version.toLong()
             if (beerInstance.version > version) {
                 beerInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'beer.label', default: 'Beer')] as Object[],
+                    [message(code: 'beer.label', default: 'Beer')] as Object[],
                           "Another user has updated this Beer while you were editing")
                 render(view: "edit", model: [beerInstance: beerInstance])
                 return
@@ -88,25 +97,25 @@ class BeerController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'beer.label', default: 'Beer'), beerInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'beer.label', default: 'Beer'), beerInstance.id])
         redirect(action: "show", id: beerInstance.id)
     }
 
     def delete() {
         def beerInstance = Beer.get(params.id)
         if (!beerInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
             redirect(action: "list")
             return
         }
 
         try {
             beerInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'beer.label', default: 'Beer'), params.id])
             redirect(action: "show", id: params.id)
         }
     }
