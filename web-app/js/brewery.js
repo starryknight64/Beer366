@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
+    var defaultRegion = $("meta[name=defaultRegion]").attr("content");
 
     function countryUpdated() {
         $.ajax({
@@ -9,7 +10,11 @@ $(document).ready(function() {
                 if( data.length > 0 ) {
                     var regions = "<option value='null'></option>\n";
                     $.each(data, function(key, val) {
-                        regions += "<option value='" + val.id + "'>" + val.name + "</option>\n";
+                        var selected = ""
+                        if( val.id == defaultRegion ) {
+                            selected = " selected"
+                        }
+                        regions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
                     });
                     $("select#region").html(regions);
                     $("label[for=region]").parent().show();
