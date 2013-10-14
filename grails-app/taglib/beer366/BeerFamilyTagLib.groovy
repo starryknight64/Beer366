@@ -32,7 +32,7 @@ class BeerFamilyTagLib {
     def renderBeerSubStyle = { attrs ->
         def subStyle = attrs.subStyle
         out << renderBeerFamilyBreadCrumbs( object: subStyle )
-        out << renderBeers( beers: Beer.findAllBySubStyle( subStyle ) )
+        out << renderBeers( beers: Beer.findAllBySubStyle( subStyle ), showBreweries: true, showStyles: false )
     }
 
     def renderBC = { attrs ->

@@ -24,8 +24,9 @@
     <div class="span4">
       <address>
 ${breweryInstance.street}<br>
-${breweryInstance.city}, ${breweryInstance.region} ${breweryInstance.postalCode}<br>
-${breweryInstance.country}
+<g:link absolute="true" uri="/brewery/list?state=${breweryInstance.region?.id ?: ""}&city=${breweryInstance.city}">${breweryInstance.city}</g:link>,
+<g:link absolute="true" uri="/brewery/locations?state=${breweryInstance.region?.id}">${breweryInstance.region}</g:link> ${breweryInstance.postalCode}<br>
+<g:link absolute="true" uri="/brewery/locations?country=${breweryInstance.country?.id}">${breweryInstance.country}</g:link>
       </address>
     </div>
     <div class="span4">
@@ -42,7 +43,7 @@ ${breweryInstance.notes ? "<b>Notes: </b>${breweryInstance.notes}" : ""}
 <g:set var="breweryBeers" value="${Beer.findAllByBrewery(breweryInstance)}" />
 <g:if test="${breweryBeers}">
   <section id="beers">
-    <b:renderBeers beers="${breweryBeers}"/>
+    <b:renderBeers beers="${breweryBeers}" showStyles="${true}" />
   </section>
 </g:if>
 </body>

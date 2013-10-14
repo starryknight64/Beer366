@@ -20,7 +20,14 @@ class BeerTagLib {
                 <thead>
                     <tr>
                         <th>${g.message( code:'brewery.beer.name.label' )}</th>
-                        <th>${g.message( code:'brewery.beer.style.label' )}</th>
+        """
+        if( attrs.showBreweries ) {
+            out << "<th>${g.message( code:'beer.brewery.label' )}</th>"
+        }
+        if( attrs.showStyles ) {
+            out << "<th>${g.message( code:'brewery.beer.style.label' )}</th>"
+        }
+        out << """
                         <th>${g.message( code:'brewery.beer.abv.label' )}</th>
                         <th>${g.message( code:'brewery.beer.baRating.label' )}</th>
                         <th>${g.message( code:'brewery.beer.ivehad.label' )}</th>
@@ -32,7 +39,12 @@ class BeerTagLib {
         beers.each{ beer ->
             out << "<tr>"
             out << "<td>${g.link( action:"show", controller:"beer", id:beer.id, "${beer}" )}</td>"
-            out << "<td>${g.link( action:"show", controller:"BeerSubStyle", id:beer.subStyle.id, "${beer.subStyle}" )}</td>"
+            if( attrs.showBreweries ) {
+                out << "<td>${g.link( action:"show", controller:"Brewery", id:beer.brewery.id, "${beer.brewery}" )}</td>"
+            }
+            if( attrs.showStyles ) {
+                out << "<td>${g.link( action:"show", controller:"BeerSubStyle", id:beer.subStyle.id, "${beer.subStyle}" )}</td>"
+            }
             out << "<td>${b.formatABV( abv:beer.abv )}</td>"
             out << "<td>${beer.baRating ? "<a href='${beer.beerAdvocateURL()}'>${beer.baRating}<i class='icon-share-alt'></i></a>" : "-"}</td>"
             out << "<td>${beer.hasUserLogged(currentUser)}</td>"
