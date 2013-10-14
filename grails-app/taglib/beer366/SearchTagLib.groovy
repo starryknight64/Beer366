@@ -21,8 +21,19 @@ class SearchTagLib {
             out << """
                 <b>${g.link( action:"show", controller:"beer", id:beer.id, "[${beer.subStyle}] ${beer}" )}</b><br>
                 <ul>
-                    ${beer.baPage ? "<i><a href='${beer.beerAdvocateURL()}'>${beer.beerAdvocateURL()}</a></i><br>" : ""}
-                    <i>${beer.brewery.fullName}</i>
+                    ${beer.baPage ? "<i><a href='${beer.beerAdvocateURL()}' target='_blank'><i class='icon-share-alt'></i> ${beer.beerAdvocateURL()}</a></i><br>" : ""}
+            """
+            String breweryInfo = "${beer.brewery.fullName}"
+            if( beer.brewery.city ) {
+                breweryInfo += " - ${beer.brewery.city}"
+                if( beer.brewery.region ?: beer.brewery.country ) {
+                    breweryInfo += ", ${beer.brewery.region ?: beer.brewery.country}"
+                }
+            } else if( beer.brewery.region ?: beer.brewery.country ) {
+                breweryInfo += " - ${beer.brewery.region ?: beer.brewery.country}"
+            }
+            out << """
+                    <i>${breweryInfo}</i>
                 </ul>
             """
         } else if( attrs.object instanceof Brewery ) {
@@ -30,8 +41,22 @@ class SearchTagLib {
             out << """
                 <b>${g.link( action:"show", controller:"brewery", id:brewery.id, "[${brewery.type}] ${brewery.fullName}" )}</b><br>
                 <ul>
-                    <i>${brewery.homepage ? "<a href='${brewery.homepage}'>${brewery.homepage}</a>" : ""}</i>${brewery.homepage ? "<br>" : ""}
-                    <i>${brewery.notes ?: ""}</i>
+                    <i>${brewery.homepage ? "<a href='${brewery.homepage}' target='_blank'><i class='icon-home'></i> ${brewery.homepage}</a>" : ""}</i>${brewery.homepage ? "<br>" : ""}
+            """
+            String locationAndNotes = ""
+            if( brewery.city ){
+                locationAndNotes += "${brewery.city}"
+                if( brewery.region ?: brewery.country ) {
+                    locationAndNotes += ", ${brewery.region ?: brewery.country}"
+                }
+            } else if( brewery.region ?: brewery.country ) {
+                locationAndNotes += "${brewery.region ?: brewery.country}"
+            }
+            if( locationAndNotes && brewery.notes ) {
+                locationAndNotes += " - ${brewery.notes}"
+            }
+            out << """
+                    <i>${locationAndNotes}</i>
                 </ul>
             """
         }

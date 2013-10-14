@@ -46,14 +46,7 @@ class UserController {
     }
 
     def show() {
-        def userInstance = params.id ? User.get( params.id ) : springSecurityService.currentUser
-        if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [userInstance: userInstance]
+        redirect(action: "totals", params: params)
     }
 
     def totals() {
