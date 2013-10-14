@@ -15,11 +15,11 @@ class DrinkLogController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [drinkLogInstanceList: DrinkLog.list(params), drinkLogInstanceTotal: DrinkLog.count()]
+        redirect(controller: "user", action: "completelog", params: params)
     }
 
     def create() {
+        params.beer = Beer.get( params.id )
         [drinkLogInstance: new DrinkLog(params)]
     }
 
@@ -35,14 +35,7 @@ class DrinkLogController {
     }
 
     def show() {
-        def drinkLogInstance = DrinkLog.get(params.id)
-        if (!drinkLogInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [drinkLogInstance: drinkLogInstance]
+        redirect(controller: "home", action: "index")
     }
 
     def edit() {

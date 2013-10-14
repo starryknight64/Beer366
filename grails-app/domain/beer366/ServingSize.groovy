@@ -31,6 +31,10 @@ class ServingSize {
         ml min: 1
     }
 
+    public static ServingSize defaultSize() {
+        return ServingSize.findByName("12 oz")
+    }
+
     /*
      * Methods of the Domain Class
      */

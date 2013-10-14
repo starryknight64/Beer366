@@ -35,6 +35,7 @@ class BeerController {
     }
 
     def create() {
+        params.brewery = Brewery.get( params.id )
         [beerInstance: new Beer(params)]
     }
 

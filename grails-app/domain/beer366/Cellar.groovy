@@ -34,7 +34,7 @@ class Cellar {
     static constraints = {
         quantity min: 1
         willTrade min: 0, nullable: true, validator: { val, obj ->
-            obj.val <= obj.quantity
+            val <= obj.quantity
         }
         notes nullable: true, widget: "textarea"
         beer unique: [ "user" ]

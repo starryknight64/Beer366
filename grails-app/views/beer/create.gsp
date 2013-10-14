@@ -30,7 +30,7 @@
       </fieldset>
       <div class="form-actions">
         <g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-        <button class="btn" type="reset">Cancel</button>
+        <g:link action="show" id="${beerInstance?.id}" class="btn">Cancel</g:link>
       </div>
     </g:form>
 

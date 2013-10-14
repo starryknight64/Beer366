@@ -8,8 +8,6 @@ import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
 class Beer {
     static searchable = true
 
-    def beer366Service
-
     /* Default (injected) attributes of GORM */
     //	Long	id
     //	Long	version
@@ -58,8 +56,14 @@ class Beer {
         lastUpdated nullable: true
     }
 
+    def beforeValidate() {
+        if( !sanitizedName || (name && sanitizedName != name?.asFriendlyUrl()) ) {
+            sanitizedName = name?.asFriendlyUrl()
+        }
+    }
+
     public String beerAdvocateURL() {
-        beer366Service.beerAdvocateBaseURL() + baPage
+        new Beer366Service().beerAdvocateBaseURL() + baPage
     }
 
     public BigDecimal averageRating() {

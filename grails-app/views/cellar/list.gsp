@@ -13,13 +13,18 @@
 </head>
 
 <body>
+  <g:if test="${flash.message}">
+    <div class="alert alert-info">${flash.message}</div>
+  </g:if>
   <div class="page-header">
     <h2>${inCurUserCellar.toBoolean() ? "My Cellar" : "${cellarUser}'s Cellar"}</h2>
   </div>
   <div class="container">
-    <div class="btn-group">
-      <g:link controller="cellar" action="create" class="btn"><i class="icon-plus"></i> Add</g:link>
-    </div>
+    <g:if test="${inCurUserCellar.toBoolean()}">
+      <div class="btn-group">
+        <g:link controller="cellar" action="create" class="btn"><i class="icon-plus"></i> Add</g:link>
+      </div>
+    </g:if>
     <div class="row">
       <g:set var="total" value="0"/>
       <g:set var="willTrade" value="0"/>

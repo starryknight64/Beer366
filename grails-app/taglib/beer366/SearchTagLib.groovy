@@ -22,13 +22,13 @@ class SearchTagLib {
                 <b>${g.link( action:"show", controller:"beer", id:beer.id, "[${beer.subStyle}] ${beer}" )}</b><br>
                 <ul>
                     ${beer.baPage ? "<i><a href='${beer.beerAdvocateURL()}'>${beer.beerAdvocateURL()}</a></i><br>" : ""}
-                    <i>${beer.brewery}</i>
+                    <i>${beer.brewery.fullName}</i>
                 </ul>
             """
         } else if( attrs.object instanceof Brewery ) {
             Brewery brewery = Brewery.get( attrs.object.id )
             out << """
-                <b>${g.link( action:"show", controller:"brewery", id:brewery.id, "[${brewery.type}] ${brewery}" )}</b><br>
+                <b>${g.link( action:"show", controller:"brewery", id:brewery.id, "[${brewery.type}] ${brewery.fullName}" )}</b><br>
                 <ul>
                     <i>${brewery.homepage ? "<a href='${brewery.homepage}'>${brewery.homepage}</a>" : ""}</i>${brewery.homepage ? "<br>" : ""}
                     <i>${brewery.notes ?: ""}</i>

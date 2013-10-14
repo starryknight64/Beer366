@@ -182,7 +182,7 @@ class IndexTagLib {
             if( attrs?.showEditButton ) {
                 out << """
                     <td>
-                        ${g.link( action:"edit", controller:"DrinkLog", id:log.id ) {"<img src'${resource(dir: 'images', file: 'pencil.png')}' alt='Grails'/>"}}
+                        ${g.link( action:"edit", controller:"DrinkLog", id:log.id ) {"<i class='icon-pencil'></i>"}}
                     </td>
                 """
             }
@@ -200,7 +200,7 @@ class IndexTagLib {
             }
             if( !attrs?.inBeerPage ) {
                 out << """
-                    <td>
+                    <td class="nowrap">
                         ${g.link( action:"show", controller:"beer", id:log.beer.id ) {log.beer}}
                     </td>
                     <td>
