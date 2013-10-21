@@ -40,11 +40,14 @@ class PageableList extends ArrayList {
 
     /* Formulated from http://www.intelligrape.com/blog/2010/09/14/grails-pagination-on-filtered-list/ */
     public Collection getNextPage( Map params ) {
-        int max = Math.min(params.max?.toInteger() ?: 10, 100)
+        int max = 100// Math.min(params.max?.toInteger() ?: 100, 100)
         int offset = params.offset?.toInteger() ?: 0
         int total = this.size()
-        int upperLimit = findUpperIndex(offset, max, total)
-        Page list = new Page(this.getAt(offset..upperLimit), total)
+        Page list = []
+        if( total > 0 ) {
+            int upperLimit = findUpperIndex(offset, max, total)
+            list = new Page(this.getAt(offset..upperLimit), total)
+        }
         return list
     }
 

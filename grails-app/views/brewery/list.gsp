@@ -35,7 +35,7 @@
 
         <td>${breweryInstance.type}</td>
 
-        <td><g:link url="${breweryInstance.homepage}">${breweryInstance.homepage}</g:link></td>
+        <td><g:link url="${breweryInstance.homepage}" target="_blank">${breweryInstance.homepage}</g:link></td>
 
         <td></td>
 

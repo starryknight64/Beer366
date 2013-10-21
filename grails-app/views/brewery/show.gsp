@@ -31,7 +31,7 @@ ${breweryInstance.street}<br>
     </div>
     <div class="span4">
       <g:if test="${breweryInstance.homepage}">
-        <i class="icon-home"></i><g:link url="${breweryInstance.homepage}">Website</g:link>
+        <i class="icon-home"></i><g:link url="${breweryInstance.homepage}" target="_blank">Website</g:link>
       </g:if>
     </div>
   </div>

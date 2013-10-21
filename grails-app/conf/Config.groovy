@@ -62,7 +62,7 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-        grails.serverURL = "http://phillip-pc:8080/Beer366"
+        grails.serverURL = "http://beer366.dyndns.org/Beer366"
     }
     production {
         grails.logging.jul.usebridge = false
