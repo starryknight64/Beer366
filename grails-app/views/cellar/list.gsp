@@ -63,7 +63,7 @@
               <tr>
               <g:if test="${inCurUserCellar.toBoolean()}">
                 <td><g:link controller="cellar" action="edit" id="${cellarInstance.id}"><i class="icon-pencil"></i></g:link></td>
-                <td><g:link controller="drinklog" action="create" id="${cellarInstance.id}"><i class="icon-ok"></i></g:link></td>
+                <td><g:link controller="drinkLog" action="create" id="${cellarInstance.id}" params="${[fromCellar: true]}"><i class="icon-ok"></i></g:link></td>
                 <td><g:link controller="cellar" action="delete" id="${cellarInstance.id}" params="[id: '${cellarInstance.id}']" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><i class="icon-remove"></i></g:link></td>
               </g:if>
               <td><g:link controller="brewery" action="show" id="${cellarInstance.beer.brewery.id}">${cellarInstance.beer.brewery}</g:link></td>

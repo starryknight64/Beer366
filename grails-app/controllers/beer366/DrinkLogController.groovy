@@ -19,8 +19,15 @@ class DrinkLogController {
     }
 
     def create() {
-        params.beer = Beer.get( params.id )
-        [drinkLogInstance: new DrinkLog(params)]
+        def drinkLogCreate = [:]
+        if( params.fromCellar ) {
+            drinkLogCreate.cellarID = params.id
+            params.beer = Cellar.get( params.id )?.beer
+        } else {
+            params.beer = Beer.get( params.id )
+        }
+        drinkLogCreate.drinkLogInstance = new DrinkLog(params)
+        return drinkLogCreate
     }
 
     def save() {
@@ -30,7 +37,25 @@ class DrinkLogController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), drinkLogInstance.id])
+        flash.message = "Successfully logged ${drinkLogInstance.size.name.charAt(0).isDigit() ? "" : "a "}${drinkLogInstance.size.name.toLowerCase()} of a${drinkLogInstance.beer.name.startsWithVowel() ? "n" : ""} $drinkLogInstance.beer"//message(code: 'default.created.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), drinkLogInstance.id])
+
+        if( params.cellarID ) {
+            def cellarInstance = Cellar.get( params.cellarID )
+            if( cellarInstance ) {
+                if( cellarInstance.quantity <= 1 ) {
+                    cellarInstance.delete(flush: true)
+                } else {
+                    cellarInstance.quantity--
+                    if( cellarInstance.willTrade > cellarInstance.quantity ) {
+                        cellarInstance.willTrade = cellarInstance.quantity
+                    }
+                    cellarInstance.save(flush: true)
+                }
+            }
+            redirect(controller: "cellar", action: "list")
+            return
+        }
+
         redirect(action: "show", id: drinkLogInstance.id)
     }
 
@@ -61,7 +86,7 @@ class DrinkLogController {
             def version = params.version.toLong()
             if (drinkLogInstance.version > version) {
                 drinkLogInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'drinkLog.label', default: 'DrinkLog')] as Object[],
+                    [message(code: 'drinkLog.label', default: 'DrinkLog')] as Object[],
                           "Another user has updated this DrinkLog while you were editing")
                 render(view: "edit", model: [drinkLogInstance: drinkLogInstance])
                 return
@@ -75,25 +100,25 @@ class DrinkLogController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), drinkLogInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), drinkLogInstance.id])
         redirect(action: "show", id: drinkLogInstance.id)
     }
 
     def delete() {
         def drinkLogInstance = DrinkLog.get(params.id)
         if (!drinkLogInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
             redirect(action: "list")
             return
         }
 
         try {
             drinkLogInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
             redirect(action: "show", id: params.id)
         }
     }

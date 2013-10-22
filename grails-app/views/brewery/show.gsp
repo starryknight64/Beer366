@@ -24,9 +24,14 @@
     <div class="span4">
       <address>
 ${breweryInstance.street}<br>
-<g:link absolute="true" uri="/brewery/list?state=${breweryInstance.region?.id ?: ""}&city=${breweryInstance.city}">${breweryInstance.city}</g:link>,
-<g:link absolute="true" uri="/brewery/locations?state=${breweryInstance.region?.id}">${breweryInstance.region}</g:link> ${breweryInstance.postalCode}<br>
-<g:link absolute="true" uri="/brewery/locations?country=${breweryInstance.country?.id}">${breweryInstance.country}</g:link>
+<g:link controller="brewery" action="list" params="${[state: breweryInstance.region?.name, city: breweryInstance.city]}">${breweryInstance.city}</g:link>,
+<g:if test="${breweryInstance.region}">
+  <g:link controller="brewery" action="locations" params="${[state: breweryInstance.region?.name]}">${breweryInstance.region}</g:link>
+</g:if>
+<g:elseif test="${breweryInstance.country}">
+  <g:link controller="brewery" action="locations" params="${[country: breweryInstance.country?.name]}">${breweryInstance.country}</g:link>
+</g:elseif>
+${breweryInstance.postalCode}<br>
       </address>
     </div>
     <div class="span4">

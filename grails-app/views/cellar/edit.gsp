@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
     <meta name="defaultServingSize" content="${ServingSize.defaultSize()?.id}" />
+    <meta name="beer" content="${cellarInstance.beer?.id}" />
   <g:set var="entityName" value="${message(code: 'cellar.label', default: 'Cellar')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />
@@ -15,7 +16,9 @@
 </head>
 
 <body>
-
+  <div class="page-header">
+    <h1>Edit Cellar Beer</h1>
+  </div>
   <section id="edit-cellar" class="first">
 
     <g:hasErrors bean="${cellarInstance}">

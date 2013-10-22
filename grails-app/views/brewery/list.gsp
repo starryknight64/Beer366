@@ -10,9 +10,16 @@
 </head>
 
 <body>
-  <ul class="nav nav-tabs">
-    <b:renderBreweryABC id="${params.id}" />
-  </ul>
+  <g:if test="${!params.city && !params.state && !params.country}">
+    <ul class="nav nav-tabs">
+      <b:renderBreweryABC id="${params.id}" />
+    </ul>
+  </g:if>
+  <g:else>
+    <div class="page-header">
+      <h1>Breweries in ${params.city ?: params.state ?: params.country} (${breweryInstanceList.size()})</h1>
+    </div>
+  </g:else>
   <section id="list-brewery" class="first">
 
     <table class="table table-bordered">

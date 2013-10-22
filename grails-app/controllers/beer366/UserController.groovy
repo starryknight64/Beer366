@@ -14,7 +14,7 @@ class UserController {
 
     def index() {
         if( params.sanitizedUsername ) {
-            def user = User.findBySanitizedUsername( params.sanitizedUsername )
+            def user = User.findBySanitizedUsername( params.sanitizedUsername?.asFriendlyUrl() )
             if( user ) {
                 redirect(action: "show", params: [id: user.id])
             } else {

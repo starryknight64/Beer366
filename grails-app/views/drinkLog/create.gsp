@@ -28,6 +28,9 @@
     </g:hasErrors>
 
     <g:form action="save" class="form-horizontal" >
+      <g:if test="${cellarID}">
+        <g:hiddenField name="cellarID" value="${cellarID}" />
+      </g:if>
       <fieldset class="form">
         <g:render template="form"/>
       </fieldset>

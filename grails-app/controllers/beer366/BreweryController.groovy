@@ -14,7 +14,7 @@ class BreweryController {
 
     def index() {
         if( params.sanitizedName ) {
-            def brewery = Brewery.findBySanitizedName( params.sanitizedName )
+            def brewery = Brewery.findBySanitizedName( params.sanitizedName?.asFriendlyUrl() )
             if( brewery ) {
                 redirect(action: "show", params: [id: brewery.id])
             } else {
@@ -32,7 +32,7 @@ class BreweryController {
         def otherParams = [sort: params.sort, order: params.order]
         if( params.country ) {
             otherParams.country = params.country
-            def country = ISO_3166_1.get( params.country )
+            def country = ISO_3166_1.findByName( params.country )
             if( params.city ) {
                 otherParams.city = params.city
                 breweries = new PageableList( Brewery.findAllByCountryAndCity( country, params.city, otherParams ) ).getNextPage( params )
@@ -43,7 +43,7 @@ class BreweryController {
             }
         } else if( params.state ) {
             otherParams.state = params.state
-            def state = ISO_3166_2.get( params.state )
+            def state = ISO_3166_2.findByName( params.state )
             if( params.city ) {
                 otherParams.city = params.city
                 breweries = new PageableList( Brewery.findAllByRegionAndCity( state, params.city, otherParams ) ).getNextPage( params )
@@ -61,27 +61,24 @@ class BreweryController {
         } else {
             breweries = new PageableList( Brewery.findAllBySanitizedNameLike( params.id + "%" ) ).getNextPage( params )
         }
-
-        if( breweries.getTotalCount() == 1 ) {
-            redirect(action: "show", id: breweries[0].id)
-        }
+//www.nationalfinder.com/html/00329999.htm
         otherParams.id = params.id
         [breweryInstanceList: breweries, breweryInstanceTotal: breweries.getTotalCount(), pageTitle: title, params: otherParams]
     }
 
     def locations() {
         if( params.state ) {
-            params.region = ISO_3166_2.get( params.state )?.code
+            params.region = ISO_3166_2.findByName( params.state )?.code
             params.resolution = "provinces"
         } else if( params.country ) {
-            def country = ISO_3166_1.get( params.country )
+            def country = ISO_3166_1.findByName( params.country )
             params.region = country?.alpha2
-            params.resolution = country.isUSA() ? "provinces" : "countries"
+            params.resolution = country?.isUSA() ? "provinces" : "countries"
         } else if( params.subcontinent ) {
-            params.region = SubContinent.get( params.subcontinent )?.code
+            params.region = SubContinent.findByName( params.subcontinent )?.code
             params.resolution = "countries"
         } else if( params.continent ) {
-            params.region = Continent.get( params.continent )?.code
+            params.region = Continent.findByName( params.continent )?.code
             params.resolution = "countries"
         }
         [params: params]
@@ -93,20 +90,20 @@ class BreweryController {
                 "region": "world"]
         if( params.state ) {
             m.displayMode = "markers"
-            def state = ISO_3166_2.get( params.state )
+            def state = ISO_3166_2.findByName( params.state )
             Brewery.findAllByRegion( state ).city.unique().each{ city ->
                 m.places.push( [city, Brewery.countByCity( city )] )
-                def url = "${grailsApplication.config.grails.serverURL}/brewery/list?state=${state.id}&city=${city}"
+                def url = "${grailsApplication.config.grails.serverURL}/brewery/list?state=${state.name}&city=${city}"
                 m.urls.push( url )
             }
         } else if( params.country ) {
-            def country = ISO_3166_1.get( params.country )
+            def country = ISO_3166_1.findByName( params.country )
             if( country?.isUSA() ) {
                 ISO_3166_2.list().each{ state ->
                     def count = Brewery.countByRegion( state )
                     if( count > 0 ) {
                         m.places.push( [state.name, count] )
-                        def url = "${grailsApplication.config.grails.serverURL}/brewery/locations?state=${state.id}"
+                        def url = "${grailsApplication.config.grails.serverURL}/brewery/locations?state=${state.name}"
                         m.urls.push( url )
                     }
                 }
@@ -114,7 +111,7 @@ class BreweryController {
                 m.displayMode = "markers"
                 Brewery.findAllByCountry( country ).city.unique().each{ city ->
                     m.places.push( [city, Brewery.countByCity( city )] )
-                    def url = "${grailsApplication.config.grails.serverURL}/brewery/list?country=${country.id}&city=${city}"
+                    def url = "${grailsApplication.config.grails.serverURL}/brewery/list?country=${country.name}&city=${city}"
                     m.urls.push( url )
                 }
             }
@@ -123,7 +120,7 @@ class BreweryController {
                 def count = Brewery.countByCountry( country )
                 if( count > 0 ) {
                     m.places.push( [country.name, count] )
-                    def url = "${grailsApplication.config.grails.serverURL}/brewery/locations?country=${country.id}"
+                    def url = "${grailsApplication.config.grails.serverURL}/brewery/locations?country=${country.name}"
                     m.urls.push( url )
                 }
             }

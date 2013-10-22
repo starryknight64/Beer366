@@ -56,7 +56,7 @@ class SearchTagLib {
                 locationAndNotes += " - ${brewery.notes}"
             }
             out << """
-                    <i>${locationAndNotes}</i>
+                    <i class='ellipsis'>${locationAndNotes}</i>
                 </ul>
             """
         }

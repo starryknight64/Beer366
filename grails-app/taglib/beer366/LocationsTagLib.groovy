@@ -10,24 +10,19 @@ class LocationsTagLib {
     def renderBreadcrumbs = { attrs ->
         def params = attrs.params
         def baseURL = "${grailsApplication.config.grails.serverURL}"
-        def state = null
-        def country = null
-        def subContinent = null
-        def continent = null
-        if( params.state ) {
-            state = ISO_3166_2.get( params.state )
+        def state = attrs.state
+        def country = attrs.country
+        def subContinent = attrs.subcontinent
+        def continent = attrs.continent
+        if( state ) {
             country = state.country
             subContinent = country.subContinent
             continent = subContinent.continent
-        } else if( params.country ) {
-            country = ISO_3166_1.get( params.country )
+        } else if( country ) {
             subContinent = country.subContinent
             continent = subContinent.continent
-        } else if( params.subcontinent ) {
-            subContinent = SubContinent.get( params.subcontinent )
+        } else if( subcontinent ) {
             continent = subContinent.continent
-        } else if( params.continent) {
-            continent = Continent.get( params.continent )
         }
 
         if( continent || subContinent || country || state ) {

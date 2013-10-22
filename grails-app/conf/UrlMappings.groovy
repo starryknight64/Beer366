@@ -34,35 +34,6 @@ class UrlMappings {
                 sanitizedUsername(matches:/^(?!^(list|create|save|show|edit|update|delete|totals|uniques|completelog|info)$).+$/)
             }
         }
-        //        "/beer/$sanitizedName?"{
-        //            controller='beer'
-        //            action='show'
-        ////            constraints {
-        ////                sanitizedName(matches:/^(?!^list$).+$/)
-        ////            }
-        //        }
-        //        "/brewery/$sanitizedName?"{
-        //            controller='brewery'
-        //            action='show'
-        //            constraints {
-        //                sanitizedName(matches:/^((?!(list|locations)).*)$/)
-        //                //                sanitizedName(matches:/^(?!^(list|locations)$).+$/)
-        //            }
-        //        }
-        //        "/brewery/locations?country=$sanitizedCountry"{
-        //            controller:'brewery'
-        //            action:'list'
-        //            constraints {
-        //                sanitizedName(matches:/^(?!^list$).+$/)
-        //            }
-        //        }
-        //        "/brewery/locations?state=$sanitizedState"{
-        //            controller:'brewery'
-        //            action:'show'
-        //            constraints {
-        //                sanitizedName(matches:/^(?!^list$).+$/)
-        //            }
-        //        }
         //        "/cellar/$sanitizedUsername"{
         //            controller:'beer'
         //            action:'show'

@@ -25,13 +25,13 @@ $(document).ready(function() {
     function drawRegionsMap() {
         var table = [['Place', 'Breweries']];
         var cmd = '/brewery/locationCount';
-        if( paramsContinent != null ) {
+        if( paramsContinent ) {
             cmd += "?continent=" + paramsContinent
-        } else if( paramsSubContinent != null ) {
+        } else if( paramsSubContinent ) {
             cmd += "?subcontinent=" + paramsSubContinent
-        } else if( paramsCountry != null ) {
+        } else if( paramsCountry ) {
             cmd += "?country=" + paramsCountry
-        } else if( paramsState != null ) {
+        } else if( paramsState ) {
             cmd += "?state=" + paramsState
         }
         var breweryCount = getJSON(cmd);

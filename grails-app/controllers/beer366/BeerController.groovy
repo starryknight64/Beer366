@@ -13,7 +13,7 @@ class BeerController {
 
     def index() {
         if( params.sanitizedName ) {
-            def beer = Beer.findBySanitizedName( params.sanitizedName )
+            def beer = Beer.findBySanitizedName( params.sanitizedName?.asFriendlyUrl() )
             if( beer ) {
                 redirect(action: "show", params: [id: beer.id])
             } else {

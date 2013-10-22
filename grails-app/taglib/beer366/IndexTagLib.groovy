@@ -213,7 +213,7 @@ class IndexTagLib {
                         ${log.size.name}
                     </td>
                     <td>
-                        ${log.rating}
+                        ${log.rating ?: ""}
                     </td>
                     <td>
                         ${log.notes ?: ""}
