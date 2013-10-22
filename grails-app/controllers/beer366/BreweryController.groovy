@@ -56,13 +56,16 @@ class BreweryController {
             otherParams.city = params.city
             breweries = new PageableList( Brewery.findAllByCity( params.city, otherParams ) ).getNextPage( params )
             title = "${params.city} Breweries"
+        } else if( params.id == "#" || params.id == null ) {
+            breweries = new PageableList( Brewery.findAllBySanitizedNameRlike( "^[^A-Za-z].+\$" ) ).getNextPage( params )
         } else {
-            breweries = Brewery.list(params)
+            breweries = new PageableList( Brewery.findAllBySanitizedNameLike( params.id + "%" ) ).getNextPage( params )
         }
 
         if( breweries.getTotalCount() == 1 ) {
             redirect(action: "show", id: breweries[0].id)
         }
+        otherParams.id = params.id
         [breweryInstanceList: breweries, breweryInstanceTotal: breweries.getTotalCount(), pageTitle: title, params: otherParams]
     }
 

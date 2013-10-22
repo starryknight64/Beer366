@@ -10,9 +10,9 @@
 </head>
 
 <body>
-  <div class="page-header">
-    <h1>${pageTitle} (${breweryInstanceTotal})</h1>
-  </div>
+  <ul class="nav nav-tabs">
+    <b:renderBreweryABC id="${params.id}" />
+  </ul>
   <section id="list-brewery" class="first">
 
     <table class="table table-bordered">
@@ -43,9 +43,6 @@
       </g:each>
       </tbody>
     </table>
-    <div class="pagination">
-      <bs:paginate params="${params}" total="${breweryInstanceTotal}" />
-    </div>
   </section>
 
 </body>
