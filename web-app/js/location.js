@@ -4,6 +4,7 @@ google.load('visualization', '1', {
 
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
+    jQuery.support.cors = true;
 
     function getJSON( cmd ) {
         var result = null;

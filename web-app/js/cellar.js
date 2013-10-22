@@ -2,6 +2,7 @@ $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var beer = $("meta[name=beer]").attr("content");
     var defaultServingSize = $("meta[name=defaultServingSize]").attr("content");
+    jQuery.support.cors = true;
 
     function breweryUpdated() {
         $.ajax({

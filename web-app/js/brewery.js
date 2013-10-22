@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var defaultRegion = $("meta[name=defaultRegion]").attr("content");
+    jQuery.support.cors = true;
 
     function countryUpdated() {
         $.ajax({

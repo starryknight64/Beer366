@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
+    jQuery.support.cors = true;
 
     function getSubStyles( styleID ) {
         var subStyles = []
