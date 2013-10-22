@@ -16,7 +16,7 @@
   <h2>User Name</h2>
   <ul>
     <h3>${userInstance}</h3>
-    Change
+    <g:link action="edit" id="${userInstance.id}">Change</g:link>
   </ul>
   <br>
   <h1>Email</h1>

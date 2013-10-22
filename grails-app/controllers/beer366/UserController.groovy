@@ -41,7 +41,7 @@ class UserController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
     }
 
@@ -52,7 +52,7 @@ class UserController {
     def totals() {
         def userInstance = params.id ? User.get( params.id ) : springSecurityService.currentUser
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
             return
         }
@@ -63,7 +63,7 @@ class UserController {
     def uniques() {
         def userInstance = params.id ? User.get( params.id ) : springSecurityService.currentUser
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
             return
         }
@@ -74,7 +74,7 @@ class UserController {
     def completelog() {
         def userInstance = params.id ? User.get( params.id ) : springSecurityService.currentUser
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
             return
         }
@@ -85,7 +85,7 @@ class UserController {
     def info() {
         def userInstance = springSecurityService.currentUser
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
             return
         }
@@ -97,7 +97,13 @@ class UserController {
         def userInstance = User.get(params.id)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "list")
+            redirect(action: "show")
+            return
+        }
+
+        if( userInstance.id != springSecurityService.currentUser.id ) {
+            flash.message = "You are not allowed to edit another user's credentials!"
+            redirect(action: "edit", id: springSecurityService.currentUser.id)
             return
         }
 
@@ -116,7 +122,7 @@ class UserController {
             def version = params.version.toLong()
             if (userInstance.version > version) {
                 userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'user.label', default: 'User')] as Object[],
+                    [message(code: 'user.label', default: 'User')] as Object[],
                           "Another user has updated this User while you were editing")
                 render(view: "edit", model: [userInstance: userInstance])
                 return
@@ -130,25 +136,26 @@ class UserController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        springSecurityService.reauthenticate( userInstance.username )
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
     }
 
     def delete() {
         def userInstance = User.get(params.id)
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
             return
         }
 
         try {
             userInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "show", id: params.id)
         }
     }
