@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
+    var subStyleID = $("meta[name=defaultSubStyle]").attr("content");
     jQuery.support.cors = true;
 
     function getSubStyles( styleID ) {
@@ -29,7 +30,11 @@ $(document).ready(function() {
                         styleOptions += "<optgroup label='" + val.name + "'>\n";
                         var styles = getSubStyles( val.id )
                         $.each(styles, function(key, val) {
-                            styleOptions += "<option value='" + val.id + "'>" + val.name + "</option>\n";
+                            var selected = "";
+                            if( val.id == subStyleID ) {
+                                selected = " selected";
+                            }
+                            styleOptions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
                         });
                         styleOptions += "</optgroup>\n";
                     });

@@ -5,6 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
+    <meta name="defaultSubStyle" content="${beerInstance.subStyle?.id}" />
   <g:set var="entityName" value="${message(code: 'beer.label', default: 'Beer')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />
