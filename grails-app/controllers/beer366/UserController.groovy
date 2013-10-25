@@ -49,6 +49,19 @@ class UserController {
         redirect(action: "totals", params: params)
     }
 
+    def updateHomepage() {
+        def userInstance = springSecurityService.currentUser
+        def baseURL = createLink(uri:'/', absolute:true)
+        def referer = request.getHeader('referer')
+        if( referer.toLowerCase().startsWith( baseURL.toLowerCase() ) ) {
+            userInstance.homepage = referer.replace(baseURL,"") ?: null
+            userInstance.save(flush:true)
+            redirect( uri: request.getHeader('referer') )
+            return
+        }
+        redirect( url: baseURL )
+    }
+
     def totals() {
         def userInstance = params.id ? User.get( params.id ) : springSecurityService.currentUser
         if (!userInstance) {

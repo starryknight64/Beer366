@@ -8,10 +8,10 @@
         <span class="icon-bar"></span>
       </a>
 
-      <a class="brand" href="${createLink(uri: '/')}">
+      <b:userHomeLink>
         <img src="${resource(dir:'images',file:'pint_32_txt.png')}" alt="${meta(name:'app.name')}" />
 ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
-      </a>
+      </b:userHomeLink>
 
       <div class="nav-collapse">
         <ul class="nav">
@@ -39,7 +39,7 @@ ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
                   </li>
                   <li class="divider"></li>
                 </sec:ifAnyGranted>
-                <li><a href="${createLink(uri: '/')}">Set Current Page as Home</a></li>
+                <li><g:link controller="User" action="updateHomepage">Set Current Page as Home</g:link></li>
                 <li><a href="${createLink(uri: '/logout')}">Sign Out</a></li>
               </ul>
             </li>

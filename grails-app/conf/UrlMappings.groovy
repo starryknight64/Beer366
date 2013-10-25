@@ -31,7 +31,7 @@ class UrlMappings {
         "/user/$sanitizedUsername?" {
             controller='user'
             constraints {
-                sanitizedUsername(matches:/^(?!^(list|create|save|show|edit|update|delete|totals|uniques|completelog|info)$).+$/)
+                sanitizedUsername(matches:/^(?!^(list|create|save|show|edit|update|delete|updateHomepage|totals|uniques|completelog|info)$).+$/)
             }
         }
         //        "/cellar/$sanitizedUsername"{

@@ -7,7 +7,13 @@ package beer366
 class UserTagLib {
     static namespace = "b"
 
+    def springSecurityService
     def beer366Service
+
+    def userHomeLink = { attrs, body ->
+        def homepage = springSecurityService.currentUser.homepage ? "/$springSecurityService.currentUser.homepage" : "/"
+        out << "<a class='brand' href='${createLink(uri: homepage)}'>${body()}</a>"
+    }
 
     def renderFivesSection = { attrs ->
         def fives = DrinkLog.findAllByUserAndRatingGreaterThanEquals( attrs.user, 5 )?.beer?.unique().sort{ a, b -> a.name <=> b.name }
