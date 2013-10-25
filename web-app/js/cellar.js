@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var beer = $("meta[name=beer]").attr("content");
-    var defaultServingSize = $("meta[name=defaultServingSize]").attr("content");
+    var chosenOptions = {search_contains: true};
     jQuery.support.cors = true;
 
     function breweryUpdated() {
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
                     $("select#beer").chosen("destroy");
                     $("select#beer").html(beerOptions);
-                    $("select#beer").chosen();
+                    $("select#beer").chosen(chosenOptions);
                 }
             },
             error: function(x,s,e){
@@ -36,9 +36,7 @@ $(document).ready(function() {
 
     breweryUpdated();
 
-    $("select#brewery").chosen();
-    $("select#beer").chosen();
-
-    $("select#size option[value=" + defaultServingSize + "]").attr("selected","");
-    $("select#size").chosen();
+    $("select#brewery").chosen(chosenOptions);
+    $("select#beer").chosen(chosenOptions);
+    $("select#size").chosen(chosenOptions);
 });

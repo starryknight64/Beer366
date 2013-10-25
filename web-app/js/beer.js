@@ -1,6 +1,8 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var subStyleID = $("meta[name=defaultSubStyle]").attr("content");
+    var baPageURL = $("meta[name=baPageURL]").attr("content");
+    var chosenOptions = {search_contains: true};
     jQuery.support.cors = true;
 
     function getSubStyles( styleID ) {
@@ -41,7 +43,7 @@ $(document).ready(function() {
 
                     $("select#subStyle").chosen("destroy");
                     $("select#subStyle").html(styleOptions);
-                    $("select#subStyle").chosen();
+                    $("select#subStyle").chosen(chosenOptions);
                 }
             },
             error: function(x,s,e){
@@ -56,6 +58,7 @@ $(document).ready(function() {
 
     familyUpdated();
 
-    $("select#brewery").chosen();
-    $("select#subStyle").chosen();
+    $("select#brewery").chosen(chosenOptions);
+    $("select#subStyle").chosen(chosenOptions);
+    $("input#baPage").val(baPageURL);
 });

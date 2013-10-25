@@ -7,7 +7,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
     <meta name="beer" content="${drinkLogInstance.beer?.id}" />
-    <meta name="defaultServingSize" content="${ServingSize.defaultSize()?.id}" />
   <g:set var="entityName" value="${message(code: 'drinkLog.label', default: 'DrinkLog')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />
@@ -35,8 +34,13 @@
         <g:render template="form"/>
       </fieldset>
       <div class="form-actions">
-        <g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-        <g:link action="show" id="${drinkLogInstance?.id}" class="btn">Cancel</g:link>
+        <g:submitButton name="create" class="btn btn-primary" value="Log Drink" />
+        <g:if test="${cellarID}">
+          <g:link controller="cellar" action="show" class="btn">Cancel</g:link>
+        </g:if>
+        <g:else>
+          <a href="${createLink(uri: '/')}" class="btn">Cancel</a>
+        </g:else>
       </div>
     </g:form>
 

@@ -35,10 +35,6 @@ ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
                     </a>
                     <ul class="dropdown-menu">
                       <li><a href="${createLink(uri: '/')}">Add User</a></li>
-                      <li class="divider"></li>
-                      <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName.substring(c.fullName.lastIndexOf('.')+1)}</g:link></li>
-                      </g:each>
                     </ul>
                   </li>
                   <li class="divider"></li>

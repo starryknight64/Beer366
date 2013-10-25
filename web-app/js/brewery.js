@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var defaultRegion = $("meta[name=defaultRegion]").attr("content");
+    var chosenOptions = {search_contains: true};
     jQuery.support.cors = true;
 
     function countryUpdated() {
@@ -19,7 +20,7 @@ $(document).ready(function() {
                     });
                     $("select#region").html(regions);
                     $("label[for=region]").parent().show();
-                    $("select#region").chosen();
+                    $("select#region").chosen(chosenOptions);
                 } else {
                     $("label[for=region]").parent().hide();
                 }
@@ -36,5 +37,5 @@ $(document).ready(function() {
 
     countryUpdated();
 
-    $("select#country").chosen();
+    $("select#country").chosen(chosenOptions);
 });

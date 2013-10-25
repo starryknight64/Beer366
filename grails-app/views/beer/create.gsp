@@ -29,8 +29,8 @@
         <g:render template="form"/>
       </fieldset>
       <div class="form-actions">
-        <g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-        <g:link action="show" id="${beerInstance?.id}" class="btn">Cancel</g:link>
+        <g:submitButton name="create" class="btn btn-primary" value="Add Beer" />
+        <a href="${createLink(uri: '/')}" class="btn">Cancel</a>
       </div>
     </g:form>
 

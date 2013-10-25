@@ -32,7 +32,7 @@
 <%-- For Javascript see end of body --%>
 </head>
 
-<body data-offset="50">
+<body data-offset="50" style="background-repeat: no-repeat; background-attachment: fixed; background-image: url('${resource(dir:'images',file:'logo_splash_bkgnd.png')}')">
 <g:render template="/_menu/navbar"/>
 
 <!-- Enable to overwrite Header by individual page -->

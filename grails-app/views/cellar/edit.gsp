@@ -6,7 +6,6 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
-    <meta name="defaultServingSize" content="${ServingSize.defaultSize()?.id}" />
     <meta name="beer" content="${cellarInstance.beer?.id}" />
   <g:set var="entityName" value="${message(code: 'cellar.label', default: 'Cellar')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">

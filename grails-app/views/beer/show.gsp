@@ -25,12 +25,15 @@
       <h3>Brewed By</h3>
       <g:link controller="brewery" action="show" id="${beerInstance.brewery.id}">${beerInstance.brewery.fullName}</g:link>
       <address>
-        <g:link controller="brewery" action="list" params="${[city: beerInstance.brewery.city]}">${beerInstance.brewery.city}</g:link>${beerInstance.brewery.region ? ", ${beerInstance.brewery.region}" : ""}, ${beerInstance.brewery.country}
+        <g:link controller="brewery" action="list" params="${[city: beerInstance.brewery.city]}">${beerInstance.brewery.city}</g:link><g:if test="${beerInstance.brewery.region}">, <g:link controller="brewery" action="list" params="${[state: beerInstance.brewery.region]}">${beerInstance.brewery.region}</g:link></g:if><g:if test="${beerInstance.brewery.country}">, <g:link controller="brewery" action="list" params="${[country: beerInstance.brewery.country]}">${beerInstance.brewery.country}</g:link></g:if>
       </address>
     </div>
     <div class="span4">
       <h3>Style</h3>
-      <g:link controller="beerSubStyle" action="show" id="${beerInstance.subStyle.id}">${beerInstance.subStyle}</g:link> (<b:formatABV abv="${beerInstance.abv}" /> ABV)
+      <g:link controller="beerSubStyle" action="show" id="${beerInstance.subStyle.id}">${beerInstance.subStyle}</g:link>
+      <g:if test="${beerInstance.abv}">
+        (<b:formatABV abv="${beerInstance.abv}" /> ABV)
+      </g:if>
     </div>
     <div class="span4">
       <h3>Ratings</h3>

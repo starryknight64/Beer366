@@ -13,11 +13,15 @@ class SearchController {
         if (!params.q?.trim()) {
             redirect(controller: "home", action: "index")
         } else {
-            try {
-                return [searchResult: searchableService.search(params.q, params)]
-            } catch (Exception ex) {
-//                redirect(controller: "home", action: "index")
-                return [parseException: true]
+            if( params.q.trim().toLowerCase() == "meow" ){
+                return [meow: true]
+            } else {
+                try {
+                    return [searchResult: searchableService.search(params.q, params)]
+                } catch (Exception ex) {
+                    //                redirect(controller: "home", action: "index")
+                    return [parseException: true]
+                }
             }
         }
     }

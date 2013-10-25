@@ -21,7 +21,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: cellarInstance, field: 'size', 'error')} required">
   <label for="size" class="control-label"><g:message code="cellar.size.label" default="Size" /><span class="required-indicator">*</span></label>
   <div class="controls">
-    <g:select id="size" name="size.id" from="${beer366.ServingSize.list()}" optionKey="id" required="" value="${cellarInstance?.size?.id}" class="many-to-one"/>
+    <g:select id="size" name="size.id" from="${beer366.ServingSize.list()}" optionKey="id" required="" value="${cellarInstance?.size?.id ?: beer366.ServingSize.defaultSize()?.id}" class="many-to-one"/>
     <span class="help-inline">${hasErrors(bean: cellarInstance, field: 'size', 'error')}</span>
   </div>
 </div>
@@ -29,7 +29,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: cellarInstance, field: 'quantity', 'error')} required">
   <label for="quantity" class="control-label"><g:message code="cellar.quantity.label" default="Quantity" /><span class="required-indicator">*</span></label>
   <div class="controls">
-    <g:field type="number" name="quantity" min="0" required="" value="${cellarInstance.quantity}"/>
+    <g:field type="number" name="quantity" min="1" required="" value="${cellarInstance.quantity ?: 1}"/>
     <span class="help-inline">${hasErrors(bean: cellarInstance, field: 'quantity', 'error')}</span>
   </div>
 </div>

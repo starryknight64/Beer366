@@ -67,10 +67,10 @@ class Beer {
     }
 
     public BigDecimal averageRating() {
-        def drinkers = DrinkLog.findAllByBeer( this )?.user?.unique()
+        def drinkers = DrinkLog.findAllByBeerAndRatingIsNotNull( this )?.user?.unique()
         def rating = 0
         drinkers?.each {
-            def userLogs = DrinkLog.findAllByUserAndBeer( it, this )
+            def userLogs = DrinkLog.findAllByUserAndBeerAndRatingIsNotNull( it, this )
             rating += userLogs?.rating?.sum() / (userLogs?.size() ?: 1)
         }
         new BigDecimal( rating / (drinkers?.size() ?: 1), new java.math.MathContext( 3 ) )
