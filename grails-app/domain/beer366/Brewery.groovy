@@ -41,7 +41,7 @@ class Brewery {
         postalCode sqlType: "text"
         homepage sqlType: "text"
         notes sqlType: "text"
-        sort "name"
+        sort "sanitizedName"
         sanitizedName sqlType: "text"
     }
 

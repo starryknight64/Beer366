@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
-    <meta name="beer" content="${drinkLogInstance.beer?.id}" />
+    <meta name="beer" content="${drinkLogInstance.beer?.id ?: ''}" />
   <g:set var="entityName" value="${message(code: 'drinkLog.label', default: 'DrinkLog')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />
@@ -27,9 +27,8 @@
     </g:hasErrors>
 
     <g:form action="save" class="form-horizontal" >
-      <g:if test="${cellarID}">
-        <g:hiddenField name="cellarID" value="${cellarID}" />
-      </g:if>
+      <g:hiddenField name="cellarID" value="${cellarID}" />
+      <g:hiddenField name="cellarBeerChosen" value="${false}" />
       <fieldset class="form">
         <g:render template="form"/>
       </fieldset>

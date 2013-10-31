@@ -19,9 +19,8 @@ $(document).ready(function() {
                         beerOptions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
                     });
 
-                    $("select#beer").chosen("destroy");
                     $("select#beer").html(beerOptions);
-                    $("select#beer").chosen(chosenOptions);
+                    $("select#beer").trigger("chosen:updated");
                 }
             },
             error: function(x,s,e){

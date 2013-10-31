@@ -1,3 +1,7 @@
+.placeholder {
+    color: #aaa;
+}
+
 .ellipsis {
     text-overflow: ellipsis;
     white-space: nowrap;

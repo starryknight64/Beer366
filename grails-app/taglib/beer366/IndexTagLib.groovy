@@ -7,6 +7,7 @@ package beer366
 class IndexTagLib {
     static namespace = "b"
 
+    def springSecurityService
     def beer366Service
 
     def renderDrinkerSummarySection = {
@@ -24,7 +25,7 @@ class IndexTagLib {
         User.findAllByLastLoginIsNotNullAndLastLoginGreaterThanEquals( new Date().minus(30) ).each{ user ->
             def userDrinkLogCount = DrinkLog.countByUser( user )
             if( userDrinkLogCount > 0 ) {
-                def userUniqueBeerCount = beer366Service.userUniqueBeers( user ).get( user.id ).size()
+                def userUniqueBeerCount = beer366Service.userUniqueBeers( user.id ).get( user.id ).size()
                 def beersRemaining = 366 - (userUniqueBeerCount % 366)
                 if( userUniqueBeerCount > 0 ) {
                     out << """
@@ -131,10 +132,12 @@ class IndexTagLib {
         } else {
             drinkLogs = DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) )
         }
-        out << b.renderDrinkLogsSection( name: "Recent Activity", logs: drinkLogs, user: attrs?.user, showPerson: attrs?.user == null )
+        out << b.renderDrinkLogsSection( name: "Recent Activity", logs: drinkLogs, user: attrs?.user, showPerson: attrs?.user == null, showEditButton: (springSecurityService.currentUser == attrs.user) )
     }
 
     def renderDrinkLogsSection = { attrs ->
+        def drinkLogs = attrs.logs ?: (attrs.user ? DrinkLog.findAllByUser( attrs.user ) : DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) ))
+        def isCurUserInRecentLog = drinkLogs.user?.contains(springSecurityService.currentUser)
         if( attrs.inCompleteLogPage ) {
             out << """
                 <div class="page-header">
@@ -157,7 +160,7 @@ class IndexTagLib {
             <table class="table table-bordered table-hover sortable">
               <thead>
         """
-        if( attrs?.showEditButton ) {
+        if( attrs?.showEditButton || isCurUserInRecentLog ) {
             out << "<th class='sorttable_nosort'></th>"
         }
         out << "<th>${g.message( [code:"allTotals.activity.date.label"] )}</th>"
@@ -176,15 +179,17 @@ class IndexTagLib {
                 <th>${g.message( [code:"allTotals.activity.notes.label"] )}</th>
               </thead>
         """
-        def drinkLogs = attrs.logs == null ? (attrs.user ? DrinkLog.findAllByUser( attrs.user ) : DrinkLog.findAllByDateGreaterThanEquals( new Date().minus(7) )) : attrs.logs
+
         drinkLogs.sort{ a,b -> b.date <=> a.date ?: b.id <=> a.id }.each { log ->
             out << "<tr>"
-            if( attrs?.showEditButton ) {
+            if( attrs?.showEditButton || log.user == springSecurityService.currentUser ) {
                 out << """
                     <td>
                         ${g.link( action:"edit", controller:"DrinkLog", id:log.id ) {"<i class='icon-pencil'></i>"}}
                     </td>
                 """
+            } else if( isCurUserInRecentLog ) {
+                out << "<td></td>"
             }
             out << """
                     <td>

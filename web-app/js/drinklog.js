@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var beer = $("meta[name=beer]").attr("content");
+    var cellarID = $("input#cellarID").val();
     var chosenOptions = {
         search_contains: true
     };
@@ -22,9 +23,8 @@ $(document).ready(function() {
                         beerOptions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
                     });
 
-                    $("select#beer").chosen("destroy");
                     $("select#beer").html(beerOptions);
-                    $("select#beer").chosen(chosenOptions);
+                    $("select#beer").trigger("chosen:updated");
                 }
             },
             error: function(x,s,e){
@@ -44,13 +44,45 @@ $(document).ready(function() {
         $("span.rating-help").html(desc);
     }
 
-    $("select#brewery").change(breweryUpdated);
+    function breweryChanged() {
+        beerChanged();
+        breweryUpdated();
+    }
+
+    function beerChanged() {
+        $("input#cellarID").val("");
+        cellarID = "";
+        beer = "";
+        $("input#cellarBeerChosen").val("false");
+        $("select#cellarBeer").val(null);
+        $("select#cellarBeer").trigger("chosen:updated");
+    }
+
+    $("select#cellarBeer").change(function() {
+        cellarID = $("select#cellarBeer").val();
+        $("input#cellarID").val(cellarID);
+        $("input#cellarBeerChosen").val("true");
+        var breweryID = $("select#cellarBeer option:selected").attr("breweryid");
+        beer = $("select#cellarBeer option:selected").attr("beerid");
+        $("select#brewery").val(breweryID);
+        $("select#brewery").trigger("chosen:updated");
+        breweryUpdated();
+    });
+
+    $("select#brewery").change(breweryChanged);
+    $("select#beer").change(beerChanged);
 
     $("input#rating").change(ratingUpdated);
     $("input#rating").keyup(ratingUpdated);
 
-    breweryUpdated();
+    if( beer == "" ) {
+        breweryUpdated();
+    }
 
+    if( cellarID != "" ) {
+        $("select#cellarBeer option[value=" + cellarID + "]").attr("selected","");
+    }
+    $("select#cellarBeer").chosen(chosenOptions);
     $("select#brewery").chosen(chosenOptions);
     $("select#beer").chosen(chosenOptions);
     $("select#size").chosen(chosenOptions);

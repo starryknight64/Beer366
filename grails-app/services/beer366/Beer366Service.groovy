@@ -24,8 +24,8 @@ class Beer366Service {
         "http://beeradvocate.com/beer/profile/"
     }
 
-    def userUniqueBeers( User user ) {
-        def userID = user?.id ?: 0
+    def userUniqueBeers( Long usrID ) {
+        def userID = usrID ?: 0
         def sql = sqlService.getSql()//new Sql(sessionFactory.currentSession.connection())
         def rows = sql.rows( """\
             SELECT dl.user_id, dl.beer_id
@@ -42,8 +42,8 @@ class Beer366Service {
         return userToBeerMap.isEmpty() ? [(userID) : new HashSet<Integer>()] : userToBeerMap
     }
 
-    def userGlobalUniqueBeers( User user ) {
-        def userID = user?.id ?: 0
+    def userGlobalUniqueBeers( Long usrID ) {
+        def userID = usrID ?: 0
         def sql = sqlService.getSql()//new Sql(sessionFactory.currentSession.connection())
         def rows = sql.rows( """\
             SELECT dl.user_id, dl.beer_id FROM drink_log AS dl

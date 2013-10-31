@@ -18,13 +18,18 @@
   <r:require modules="${session.skin ? session.skin : 'bootstrap'}"/>
   <r:require modules="${session.skin ? session.skin + '_utils' : 'bootstrap_utils'}"/>
   <r:layoutResources />
+  <g:javascript src="placeholder/jquery.placeholder.js" />
 </head>
 <body>
 <g:layoutBody/>
 <script type='text/javascript'>
   $(document).ready(function() {
-    $('#password').focus();
-    $('#username').focus();
+    $('#username').placeholder();
+    $('#password').placeholder();
+    if( !$.browser.msie ) {
+      $('#password').focus();
+      $('#username').focus();
+    }
   });
 </script>
 <div id="spinner" class="spinner" style="display:none;">

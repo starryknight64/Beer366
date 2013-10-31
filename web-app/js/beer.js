@@ -41,9 +41,8 @@ $(document).ready(function() {
                         styleOptions += "</optgroup>\n";
                     });
 
-                    $("select#subStyle").chosen("destroy");
                     $("select#subStyle").html(styleOptions);
-                    $("select#subStyle").chosen(chosenOptions);
+                    $("select#subStyle").trigger("chosen:updated");
                 }
             },
             error: function(x,s,e){

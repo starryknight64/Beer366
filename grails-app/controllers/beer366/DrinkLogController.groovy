@@ -10,6 +10,8 @@ class DrinkLogController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def springSecurityService
+
     def index() {
         redirect(action: "list", params: params)
     }
@@ -26,6 +28,7 @@ class DrinkLogController {
         } else {
             params.beer = Beer.get( params.id )
         }
+        drinkLogCreate.cellarList = Cellar.findAllByUser( springSecurityService.currentUser )
         drinkLogCreate.drinkLogInstance = new DrinkLog(params)
         return drinkLogCreate
     }
@@ -37,7 +40,9 @@ class DrinkLogController {
             return
         }
 
-        flash.message = "Successfully logged ${drinkLogInstance.size.name.charAt(0).isDigit() ? "" : "a "}${drinkLogInstance.size.name.toLowerCase()} of a${drinkLogInstance.beer.name.startsWithVowel() ? "n" : ""} $drinkLogInstance.beer"//message(code: 'default.created.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), drinkLogInstance.id])
+        def sizeName = drinkLogInstance.size.name.toLowerCase()
+        def beer = drinkLogInstance.beer
+        flash.message = "Successfully logged ${sizeName.charAt(0).isDigit() ? "" : "a "}${sizeName} of a ${beer.brewery} ${beer.name}"
 
         if( params.cellarID ) {
             def cellarInstance = Cellar.get( params.cellarID )

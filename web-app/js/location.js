@@ -35,7 +35,6 @@ $(document).ready(function() {
             cmd += "?state=" + paramsState
         }
         var breweryCount = getJSON(cmd);
-        console.log( JSON.stringify(breweryCount))
         table = table.concat(breweryCount.places);
 
         var data = google.visualization.arrayToDataTable(table);

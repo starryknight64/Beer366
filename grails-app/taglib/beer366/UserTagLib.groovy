@@ -11,7 +11,7 @@ class UserTagLib {
     def beer366Service
 
     def userHomeLink = { attrs, body ->
-        def homepage = springSecurityService.currentUser.homepage ? "/$springSecurityService.currentUser.homepage" : "/"
+        def homepage = springSecurityService.currentUser?.homepage ? "/$springSecurityService.currentUser.homepage" : "/"
         out << "<a class='brand' href='${createLink(uri: homepage)}'>${body()}</a>"
     }
 

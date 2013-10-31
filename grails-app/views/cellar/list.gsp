@@ -59,7 +59,7 @@
             </thead>
             <tbody>
             <g:set var="currentUser" value="${User.get( sec.loggedInUserInfo(field:'id').toInteger() )}" />
-            <g:each var="cellarInstance" in="${cellarInstanceList}">
+            <g:each var="cellarInstance" in="${cellarInstanceList.sort{c1,c2-> c1.beer.brewery.name <=> c2.beer.brewery.name ?: c1.beer.name <=> c2.beer.name}}">
               <tr>
               <g:if test="${inCurUserCellar.toBoolean()}">
                 <td><g:link controller="cellar" action="edit" id="${cellarInstance.id}"><i class="icon-pencil"></i></g:link></td>

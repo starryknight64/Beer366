@@ -60,12 +60,18 @@ class User {
     }
 
     List<Beer> getUniqueBeers() {
-        List uniqueBeerIDs = beer366Service.userUniqueBeers( this ).get( this.id ).asList()
+        if (!this.isAttached()) {
+            this.attach()
+        }
+        List uniqueBeerIDs = beer366Service.userUniqueBeers( this.id ).get( this.id ).asList()
         Beer.getAll(uniqueBeerIDs).asList()
     }
 
     List<Beer> getGloballyUniqueBeers() {
-        List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( this ).get( this.id ).asList()
+        if (!this.isAttached()) {
+            this.attach()
+        }
+        List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( this.id ).get( this.id ).asList()
         Beer.getAll(globalUniqueBeerIDs).asList()
     }
 
