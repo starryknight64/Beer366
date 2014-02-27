@@ -71,8 +71,11 @@ class User {
         if (!this.isAttached()) {
             this.attach()
         }
-        List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( this.id ).get( this.id ).asList()
-        Beer.getAll(globalUniqueBeerIDs).asList()
+		if( this.id != null ) {
+	        List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( this.id ).get( this.id ).asList()
+	        return Beer.getAll(globalUniqueBeerIDs).asList()
+		}
+		return []
     }
 
     Set<Role> getAuthorities() {

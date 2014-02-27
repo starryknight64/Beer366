@@ -26,11 +26,12 @@ class UserController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
 
     def create() {
+		params.enabled = true
+		params.password = "beer366"
         [userInstance: new User(params)]
     }
 

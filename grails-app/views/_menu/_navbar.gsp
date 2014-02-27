@@ -34,7 +34,7 @@ ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
                       Admin <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a href="${createLink(uri: '/')}">Add User</a></li>
+                      <li><a href="${createLink(uri: '/user/create')}">Add User</a></li>
                     </ul>
                   </li>
                   <li class="divider"></li>
