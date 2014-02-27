@@ -52,6 +52,9 @@ class UserController {
 
     def updateHomepage() {
         def userInstance = springSecurityService.currentUser
+        if (!userInstance.isAttached()) {
+            userInstance.attach()
+        }
         def baseURL = createLink(uri:'/', absolute:true)
         def referer = request.getHeader('referer')
         if( referer.toLowerCase().startsWith( baseURL.toLowerCase() ) ) {
