@@ -33,7 +33,9 @@
       </fieldset>
       <div class="form-actions">
         <g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-        <g:actionSubmit class="btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+		<sec:ifAnyGranted roles="ROLE_ADMIN">
+        	<g:actionSubmit class="btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+        </sec:ifAnyGranted>
         <g:link action="show" id="${breweryInstance?.id}" class="btn">Cancel</g:link>
       </div>
     </g:form>

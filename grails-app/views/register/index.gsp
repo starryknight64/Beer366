@@ -25,17 +25,13 @@
 	<table>
 	<tbody>
 
-		<s2ui:textFieldRow name='username' labelCode='user.username.label' bean="${command}"
-                         size='40' labelCodeDefault='Username' value="${command.username}"/>
-
-		<s2ui:textFieldRow name='email' bean="${command}" value="${command.email}"
-		                   size='40' labelCode='user.email.label' labelCodeDefault='E-mail'/>
-
-		<s2ui:passwordFieldRow name='password' labelCode='user.password.label' bean="${command}"
-                             size='40' labelCodeDefault='Password' value="${command.password}"/>
-
-		<s2ui:passwordFieldRow name='password2' labelCode='user.password2.label' bean="${command}"
-                             size='40' labelCodeDefault='Password (again)' value="${command.password2}"/>
+		<s2ui:textFieldRow name='username' labelCode='user.username.label' bean="${command}" size='40' labelCodeDefault='Username' value="${command.username}"/>
+		<s2ui:textFieldRow name='email' bean="${command}" value="${command.email}" size='40' labelCode='user.email.label' labelCodeDefault='E-mail'/>
+		<s2ui:textFieldRow name='firstName' bean="${command}" value="${command.firstName}" size='40' labelCode='user.firstName.label' labelCodeDefault='First Name'/>
+		<s2ui:textFieldRow name='lastName' bean="${command}" value="${command.lastName}" size='40' labelCode='user.lastName.label' labelCodeDefault='Last Name'/>
+		<s2ui:textFieldRow name='gender' bean="${command}" value="${command.gender}" size='1' labelCode='user.gender.label' labelCodeDefault='Gender (M/F)'/>
+		<s2ui:passwordFieldRow name='password' labelCode='user.password.label' bean="${command}" size='40' labelCodeDefault='Password' value="${command.password}"/>
+		<s2ui:passwordFieldRow name='password2' labelCode='user.password2.label' bean="${command}" size='40' labelCodeDefault='Password (again)' value="${command.password2}"/>
 
 	</tbody>
 	</table>
