@@ -11,7 +11,7 @@
 
     <body>
         <div class="page-header">
-            <h1>Change Username for ${userInstance.username}</h1>
+            <h1>Edit Info for ${userInstance.username} <small><a class="btn"><i class="icon-pencil"></i> Change Password</a></small></h1>
         </div>
         <section id="edit-user" class="first">
 
@@ -25,7 +25,7 @@
                 <g:hiddenField name="id" value="${userInstance?.id}" />
                 <g:hiddenField name="version" value="${userInstance?.version}" />
                 <fieldset class="form">
-                    <g:render template="edit"/>
+                    <g:render template="create"/>
                 </fieldset>
                 <div class="form-actions">
                     <g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

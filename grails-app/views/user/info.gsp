@@ -11,20 +11,16 @@
 </head>
 
 <body>
-  <h1>${userInstance}'s Info</h1>
+  <h1>${userInstance}'s Info <small><g:link action="edit" id="${userInstance.id}">Edit</g:link></small></h1>
   <hr>
-  <h2>User Name</h2>
-  <ul>
-    <h3>${userInstance}</h3>
-    <g:link action="edit" id="${userInstance.id}">Change</g:link>
-  </ul>
-  <br>
-  <h1>Email</h1>
-  <ul>
-    <h2>${userInstance.email}</h2>
-  </ul>
-  <br>
-  Change Password
+  <table class="table table-bordered">
+	  <tr><th>First Name</th><td>${userInstance.firstName}</td></tr>
+	  <tr><th>Last Name</th><td>${userInstance.lastName}</td></tr>
+	  <tr><th>Email</th><td>${userInstance.email}</td></tr>
+	  <tr><th>User Name</th><td>${userInstance.username}</td></tr>
+	  <tr><th>Gender</th><td>${userInstance.gender}</td></tr>
+  </table>
+  
 </body>
 
 </html>
