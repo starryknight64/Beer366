@@ -69,15 +69,15 @@ class DrinkLogController {
     }
 
     def edit() {
-		if( springSecurityService.currentUser.id != params.id ) {
-			redirect(action: "list")
-		}
         def drinkLogInstance = DrinkLog.get(params.id)
         if (!drinkLogInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'drinkLog.label', default: 'DrinkLog'), params.id])
             redirect(action: "list")
             return
         }
+		if( springSecurityService.currentUser.id != drinkLogInstance.user.id ) {
+			redirect(action: "list")
+		}
 
         [drinkLogInstance: drinkLogInstance]
     }

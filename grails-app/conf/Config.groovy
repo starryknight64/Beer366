@@ -70,7 +70,8 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://www.beer366.com"
+//        grails.serverURL = "http://www.beer366.com"
+		grails.serverURL = "http://68.169.48.69"
     }
 }
 
