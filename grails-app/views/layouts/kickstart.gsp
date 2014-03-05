@@ -43,7 +43,7 @@
   <g:render template="/layouts/header"/>
 </g:else>
 
-<div class="container">
+<div class="container" style="background-color: rgba(255,255,255,0.5); padding: 0px 5px">
   <g:layoutBody />
   <g:pageProperty name="page.body" />
 </div>

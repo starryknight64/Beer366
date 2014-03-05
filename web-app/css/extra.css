@@ -1,3 +1,7 @@
+#chart_div rect[stroke=none] {
+	display: none;
+}
+
 .placeholder {
     color: #aaa;
 }
