@@ -40,6 +40,9 @@ class ServingSize {
      */
     @Override	// Override toString for a nicer / more descriptive UI
     public String toString() {
+		if( name?.toLowerCase() == "${ml} ml" ) {
+			return name
+		}
         return "${name} (${ml} mL)";
     }
 }

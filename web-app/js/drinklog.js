@@ -2,6 +2,7 @@ $(document).ready(function() {
     var baseURL = $("meta[name=serverURL]").attr("content");
     var beer = $("meta[name=beer]").attr("content");
     var cellarID = $("input#cellarID").val();
+    var dfltServingSizeID = $("meta[name=defaultServingSize]").attr("content");
     var chosenOptions = {
         search_contains: true
     };
@@ -59,9 +60,17 @@ $(document).ready(function() {
     }
 
     $("select#cellarBeer").change(function() {
+    	//Get cellar ID
         cellarID = $("select#cellarBeer").val();
         $("input#cellarID").val(cellarID);
         $("input#cellarBeerChosen").val("true");
+        
+        //Get serving size ID
+        var servingSizeID = $("select#cellarBeer option[value="+cellarID+"]").attr("servingSizeID")
+        $("select#servingSize").val(servingSizeID);
+        $("select#servingSize").trigger("chosen:updated");
+        
+        //Get brewery ID
         var breweryID = $("select#cellarBeer option:selected").attr("breweryid");
         beer = $("select#cellarBeer option:selected").attr("beerid");
         $("select#brewery").val(breweryID);
@@ -85,5 +94,5 @@ $(document).ready(function() {
     $("select#cellarBeer").chosen(chosenOptions);
     $("select#brewery").chosen(chosenOptions);
     $("select#beer").chosen(chosenOptions);
-    $("select#size").chosen(chosenOptions);
+    $("select#servingSize").chosen(chosenOptions);
 });

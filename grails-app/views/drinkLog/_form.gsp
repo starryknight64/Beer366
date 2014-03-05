@@ -15,7 +15,7 @@
       <select id="cellarBeer" name="cellarBeer.id" class="many-to-one" data-placeholder="Select a beer...">
         <option value></option>
         <g:each in="${cellarList.sort{c1,c2-> c1.beer.brewery.name <=> c2.beer.brewery.name ?: c1.beer.name <=> c2.beer.name}}">
-          <option value="${it.id}" breweryid="${it.beer.brewery.id}" beerid="${it.beer.id}">${it}</option>
+          <option value="${it.id}" breweryid="${it.beer.brewery.id}" beerid="${it.beer.id}" servingsizeid="${it.servingSize.id}">${it} - ${it.servingSize.name}</option>
         </g:each>
       </select>
     </div>
@@ -38,12 +38,11 @@
   </div>
 </div>
 
-<div class="control-group fieldcontain ${hasErrors(bean: drinkLogInstance, field: 'size', 'error')} ">
-  <label for="size" class="control-label"><g:message code="drinkLog.size.label" default="Size" /></label>
+<div class="control-group fieldcontain ${hasErrors(bean: drinkLogInstance, field: 'servingSize', 'error')} ">
+  <label for="servingSize" class="control-label"><g:message code="drinkLog.servingSize.label" default="servingSize" /></label>
   <div class="controls">
-    <g:set var="servingSizeList" value="${beer366.ServingSize.list()}" />
-    <g:select id="size" name="size.id" from="${servingSizeList}" optionKey="id" value="${drinkLogInstance?.size?.id ?: beer366.ServingSize.defaultSize()?.id }" class="many-to-one" noSelection="['null': '']"/>
-    <span class="help-inline">${hasErrors(bean: drinkLogInstance, field: 'size', 'error')}</span>
+    <g:select id="servingSize" name="servingSize.id" from="${beer366.ServingSize.list()}" optionKey="id" value="${drinkLogInstance?.servingSize?.id ?: beer366.ServingSize.defaultSize()?.id}" class="many-to-one" noSelection="['null': '']"/>
+    <span class="help-inline">${hasErrors(bean: drinkLogInstance, field: 'servingSize', 'error')}</span>
   </div>
 </div>
 

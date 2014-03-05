@@ -16,7 +16,7 @@ class DrinkLog {
     Date date
     User user
     Beer beer
-    ServingSize size
+    ServingSize servingSize
     Float rating
     String notes
 
@@ -33,7 +33,7 @@ class DrinkLog {
 
     static constraints = {
         rating scale: 2, min: 0.00f, max: 5.00f, nullable: true
-        size nullable: true
+        servingSize nullable: true
         notes nullable: true, widget: "textarea"
     }
 

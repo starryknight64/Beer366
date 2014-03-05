@@ -19,7 +19,7 @@
 
 				<th class="nowrap"><g:message code="drinkLog.rating.label" default="Rating" /></th>
 
-				<th class="nowrap"><g:message code="drinkLog.size.label" default="Size" /></th>
+				<th class="nowrap"><g:message code="drinkLog.servingSize.label" default="Size" /></th>
 
 				<th class="nowrap"><g:message code="drinkLog.notes.label" default="Notes" /></th>
 

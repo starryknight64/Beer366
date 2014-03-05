@@ -18,11 +18,11 @@
   </div>
 </div>
 
-<div class="control-group fieldcontain ${hasErrors(bean: cellarInstance, field: 'size', 'error')} required">
-  <label for="size" class="control-label"><g:message code="cellar.size.label" default="Size" /><span class="required-indicator">*</span></label>
+<div class="control-group fieldcontain ${hasErrors(bean: cellarInstance, field: 'servingSize', 'error')} required">
+  <label for="servingSize" class="control-label"><g:message code="cellar.servingSize.label" default="Size" /><span class="required-indicator">*</span></label>
   <div class="controls">
-    <g:select id="size" name="size.id" from="${beer366.ServingSize.list()}" optionKey="id" required="" value="${cellarInstance?.size?.id ?: beer366.ServingSize.defaultSize()?.id}" class="many-to-one"/>
-    <span class="help-inline">${hasErrors(bean: cellarInstance, field: 'size', 'error')}</span>
+    <g:select id="servingSize" name="servingSize.id" from="${beer366.ServingSize.list()}" optionKey="id" required="" value="${cellarInstance?.servingSize?.id ?: beer366.ServingSize.defaultSize()?.id}" class="many-to-one"/>
+    <span class="help-inline">${hasErrors(bean: cellarInstance, field: 'servingSize', 'error')}</span>
   </div>
 </div>
 

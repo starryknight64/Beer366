@@ -24,7 +24,9 @@ class DrinkLogController {
         def drinkLogCreate = [:]
         if( params.fromCellar ) {
             drinkLogCreate.cellarID = params.id
-            params.beer = Cellar.get( params.id )?.beer
+            def cellar = Cellar.get( params.id )
+            params.beer = cellar?.beer
+            params.servingSize = cellar?.servingSize
         } else {
             params.beer = Beer.get( params.id )
         }
@@ -40,7 +42,7 @@ class DrinkLogController {
             return
         }
 
-        def sizeName = drinkLogInstance.size.name.toLowerCase()
+        def sizeName = drinkLogInstance.servingSize.name.toLowerCase()
         def beer = drinkLogInstance.beer
         flash.message = "Successfully logged ${sizeName.charAt(0).isDigit() ? "" : "a "}${sizeName} of a ${beer.brewery} ${beer.name}"
 
@@ -75,9 +77,9 @@ class DrinkLogController {
             redirect(action: "list")
             return
         }
-		if( springSecurityService.currentUser.id != drinkLogInstance.user.id ) {
-			redirect(action: "list")
-		}
+        if( springSecurityService.currentUser.id != drinkLogInstance.user.id ) {
+            redirect(action: "list")
+        }
 
         [drinkLogInstance: drinkLogInstance]
     }

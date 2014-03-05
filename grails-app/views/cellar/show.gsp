@@ -53,9 +53,9 @@
       </tr>
 
       <tr class="prop">
-        <td valign="top" class="name"><g:message code="cellar.size.label" default="Size" /></td>
+        <td valign="top" class="name"><g:message code="cellar.servingSize.label" default="Size" /></td>
 
-      <td valign="top" class="value"><g:link controller="servingSize" action="show" id="${cellarInstance?.size?.id}">${cellarInstance?.size?.encodeAsHTML()}</g:link></td>
+      <td valign="top" class="value"><g:link controller="servingSize" action="show" id="${cellarInstance?.servingSize?.id}">${cellarInstance?.servingSize?.encodeAsHTML()}</g:link></td>
 
       </tr>
 

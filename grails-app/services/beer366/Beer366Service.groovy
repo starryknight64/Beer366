@@ -30,7 +30,7 @@ class Beer366Service {
         def rows = sql.rows( """\
             SELECT dl.user_id, dl.beer_id
             FROM drink_log AS dl
-            INNER JOIN serving_size AS ss ON ss.id = dl.size_id
+            INNER JOIN serving_size AS ss ON ss.id = dl.serving_size_id
             WHERE ss.ml >= 237
             ${ userID > 0 ? " AND user_id=?" : ""}
             GROUP BY user_id, beer_id""", userID > 0 ? [userID] : [] )
@@ -48,7 +48,7 @@ class Beer366Service {
         def rows = sql.rows( """\
             SELECT dl.user_id, dl.beer_id FROM drink_log AS dl
             LEFT JOIN drink_log AS dl2 ON dl.beer_id = dl2.beer_id AND dl.user_id != dl2.user_id
-            INNER JOIN serving_size AS ss ON ss.id = dl.size_id
+            INNER JOIN serving_size AS ss ON ss.id = dl.serving_size_id
             WHERE dl2.user_id IS NULL AND ss.ml >= 237
             ${ userID > 0 ? " AND dl.user_id = ?" : "" }
             GROUP BY dl.user_id, dl.beer_id""", userID > 0 ? [ userID ] : [] )

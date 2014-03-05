@@ -49,7 +49,7 @@
             <th class="nowrap"><g:message code="beer.brewery.label" default="Brewery" /></th>
             <th class="nowrap"><g:message code="cellar.beer.label" default="Beer" /></th>
             <th class="nowrap"><g:message code="beer.subStyle.label" default="Style" /></th>
-            <th class="nowrap"><g:message code="cellar.size.label" default="Size" /></th>
+            <th class="nowrap"><g:message code="cellar.servingSize.label" default="Size" /></th>
             <th class="nowrap"><g:message code="beer.baRating.label" default="BA Rating" /></th>
             <th class="nowrap"><g:message code="cellar.quantity.label" default="Quantity" /></th>
             <th class="nowrap">Will Trade</th>
@@ -72,7 +72,7 @@
 
               <td><g:link controller="beerSubStyle" action="show" id="${cellarInstance.beer.subStyle.id}">${cellarInstance.beer.subStyle}</g:link></td>
 
-              <td class="nowrap" sorttable_customkey="${cellarInstance.size.ml}">${cellarInstance.size.name}</td>
+              <td class="nowrap" sorttable_customkey="${cellarInstance.servingSize.ml}">${cellarInstance.servingSize.name}</td>
 
               <td>${cellarInstance.beer.baRating}</td>
 

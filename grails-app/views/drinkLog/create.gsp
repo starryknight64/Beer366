@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="kickstart" />
     <meta name="beer" content="${drinkLogInstance.beer?.id ?: ''}" />
+    <meta name="defaultServingSize" content="${ServingSize.defaultSize()?.id ?: ''}" />
   <g:set var="entityName" value="${message(code: 'drinkLog.label', default: 'DrinkLog')}" />
   <link rel="stylesheet" href="${resource(dir: 'js/chosen', file: 'chosen.css')}" type="text/css">
   <g:javascript src="chosen/chosen.jquery.js" />

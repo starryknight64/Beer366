@@ -25,9 +25,9 @@
 			</tr>
 		
 			<tr class="prop">
-				<td valign="top" class="name"><g:message code="drinkLog.size.label" default="Size" /></td>
+				<td valign="top" class="name"><g:message code="drinkLog.servingSize.label" default="Size" /></td>
 				
-				<td valign="top" class="value"><g:link controller="servingSize" action="show" id="${drinkLogInstance?.size?.id}">${drinkLogInstance?.size?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="servingSize" action="show" id="${drinkLogInstance?.servingSize?.id}">${drinkLogInstance?.servingSize?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
 		

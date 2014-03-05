@@ -15,7 +15,7 @@ class Cellar {
     //	Date	lastUpdated
     User user
     Beer beer
-    ServingSize size
+    ServingSize servingSize
     Integer quantity
     Integer willTrade
     String notes
