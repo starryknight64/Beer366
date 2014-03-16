@@ -35,20 +35,19 @@ class LocationsTagLib {
             out << "<a href='${baseURL}/brewery/locations?continent=${continent.id}'>${continent.name}</a>"
             out << "</li>"
             if( subContinent ) {
-                out << "<span class='divider'>/</span>"
                 out << "<li>"
+                out << "<span class='divider'>/</span>"
                 out << "<a href='${baseURL}/brewery/locations?subcontinent=${subContinent.id}'>${subContinent.name}</a>"
                 out << "</li>"
             }
             if( country ) {
-                out << "<span class='divider'>/</span>"
                 out << "<li>"
+                out << "<span class='divider'>/</span>"
                 out << "<a href='${baseURL}/brewery/locations?country=${country.id}'>${country.name}</a>"
                 out << "</li>"
             }
             if( state ) {
-                out << "<span class='divider'>/</span>"
-                out << "<li>${state.name}</li>"
+                out << "<li>${state.name}<span class='divider'>/</span></li>"
             }
             out << "</ul>"
         } else {
