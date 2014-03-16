@@ -46,7 +46,7 @@ class BeerTagLib {
                 out << "<td>${g.link( action:"show", controller:"BeerSubStyle", id:beer.subStyle.id, "${beer.subStyle}" )}</td>"
             }
             out << "<td>${b.formatABV( abv:beer.abv )}</td>"
-            out << "<td>${beer.baRating ? "<a href='${beer.beerAdvocateURL()}' target='_blank'>${beer.baRating}<i class='icon-share-alt'></i></a>" : "-"}</td>"
+            out << "<td>${beer.baPage ? "<a href='${beer.beerAdvocateURL()}' target='_blank'>${beer.baRating ?: "N/A"}<i class='icon-share-alt'></i></a>" : "-"}</td>"
             out << "<td>${beer.hasUserLogged(currentUser)}</td>"
             out << "</tr>"
         }
