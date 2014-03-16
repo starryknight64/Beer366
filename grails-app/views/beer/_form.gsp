@@ -40,7 +40,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: beerInstance, field: 'abv', 'error')} ">
   <label for="abv" class="control-label"><g:message code="beer.abv.label" default="Abv" /></label>
   <div class="controls">
-    <g:field type="number" name="abv" step="0.01" min="0.0" value="${beerInstance?.abv}"/>
+    <g:field type="number" name="abv" step="0.01" min="0.0" max="100.0" value="${beerInstance?.abv}"/>
     <span class="help-inline">${hasErrors(bean: beerInstance, field: 'abv', 'error')}</span>
   </div>
 </div>
