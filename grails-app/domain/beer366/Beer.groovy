@@ -41,7 +41,7 @@ class Beer {
     }
 
     static constraints = {
-        abv scale: 2, min: 0.00f, nullable: true
+        abv scale: 2, min: 0.00f, max: 100.00f, nullable: true
         baRating nullable: true, range: 0..100
         baPage nullable: true, validator: { val, obj ->
             if( !obj.baPage ) {

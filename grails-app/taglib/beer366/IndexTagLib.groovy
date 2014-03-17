@@ -22,12 +22,13 @@ class IndexTagLib {
                   <th>${g.message( [code:"allTotals.summary.percent.label"] )}</th>
                   <th>${g.message( [code:"allTotals.summary.finishDate.label"] )}</th>
                 </thead>"""
-        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThanEquals( new Date().minus(30) ).each{ user ->
-            def userDrinkLogCount = DrinkLog.countByUser( user )
-            if( userDrinkLogCount > 0 ) {
-                def userUniqueBeerCount = beer366Service.userUniqueBeers( user.id ).get( user.id ).size()
-                def beersRemaining = 366 - (userUniqueBeerCount % 366)
-                if( userUniqueBeerCount > 0 ) {
+        beer366Service.userUniqueBeers( null )?.each { userID, uniqueBeerIDs ->
+            def userUniqueBeerCount = uniqueBeerIDs.size()
+            if( userUniqueBeerCount > 0 ) {
+                def user = User.get( userID )
+                def userDrinkLogCount = DrinkLog.countByUser( user )
+                if( userDrinkLogCount > 0 ) {
+                    def beersRemaining = 366 - (userUniqueBeerCount % 366)
                     out << """
                         <tr>
                           <td>
@@ -100,24 +101,23 @@ class IndexTagLib {
               </thead>"""
 
         def userToUniqueBeerMap = beer366Service.userUniqueBeers( null )
-        def userToGlobalUniqueBeerMap = beer366Service.userGlobalUniqueBeers( null )
-        User.findAllByLastLoginIsNotNullAndLastLoginGreaterThanEquals( new Date().minus(30) ).each{ user ->
-            def userUniqueBeerCount = userToUniqueBeerMap.get( user.id )?.size() ?: 0
+        beer366Service.userGlobalUniqueBeersCount( null )?.each { userID, globalUniqueCount ->
+            def userUniqueBeerCount = userToUniqueBeerMap.get( userID )?.size() ?: 0
             if( userUniqueBeerCount > 0 ) {
-                def userGlobalUniqueBeerCount = userToGlobalUniqueBeerMap.get( user.id )?.size() ?: 0
+                def user = User.get(userID)
                 out << """
                     <tr>
                       <td>
-                        ${g.link( action:"show", controller:"user", id:user.id ) {user}}
+                        ${g.link( action:"show", controller:"user", id:userID ) {user}}
                       </td>
                       <td>
                         $userUniqueBeerCount
                       </td>
                       <td>
-                        $userGlobalUniqueBeerCount
+                        $globalUniqueCount
                       </td>
                       <td>
-                        ${g.formatNumber( [number: userGlobalUniqueBeerCount / userUniqueBeerCount, format: "0.00%"] )}
+                        ${g.formatNumber( [number: globalUniqueCount / userUniqueBeerCount, format: "0.00%"] )}
                       </td>
                     </tr>"""
             }
@@ -147,7 +147,7 @@ class IndexTagLib {
         } else {
             out << "<h1>${attrs.name}</h1>"
         }
-
+        
         if( attrs.logs?.size() == 0 ) {
             if( attrs.inBeerPage ) {
                 out << "<ul>No one has logged this beer yet.</ul>"
