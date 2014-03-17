@@ -83,4 +83,23 @@ class Beer366Service {
         sql.close()
         return userToBeerMap.isEmpty() ? [(userID) : new HashSet<Integer>()] : userToBeerMap
     }
+	
+	def beerStyles( Long stylID ) {
+		def styleID = stylID ?: 0
+		def sql = sqlService.getSql()
+		def rows = sql.rows( """\
+            SELECT bs.id AS styleID, bs.name AS styleName, bss.id AS subStyleID, bss.name AS subStyleName FROM beer_style AS bs
+			LEFT JOIN beer_sub_style AS bss ON bss.style_id = bs.id
+			${styleID > 0 ? "WHERE bs.id = ?" : ""}
+			ORDER BY bs.name ASC, bss.name ASC""", styleID > 0 ? [ styleID ] : [] )
+		def styles = []
+		rows.each { row ->
+			def style = styles.find{ it.id == row.styleID } ?: [:]
+			style.put( "id", row.styleID )
+			style.put( "name", row.styleName )
+			style.get( "subStyles", [] ).add( ["id":row.subStyleID,"name":row.subStyleName] )
+			styles.add(style)
+		}
+		return styles
+	}
 }

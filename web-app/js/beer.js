@@ -22,28 +22,31 @@ $(document).ready(function() {
     }
 
     function familyUpdated() {
+    	var familyVal = $("#family").val();
         $.ajax({
-            url:baseURL + '/beerStyle/familyStyles?familyid=' + $("#family").val(),
+            url:baseURL + '/beerStyle/familySubStyles?familyid=' + familyVal,
             crossDomain:true,
             success: function(data) {
-                if( data.length > 0 ) {
-                    var styleOptions = "";
-                    $.each(data, function(key, val) {
-                        styleOptions += "<optgroup label='" + val.name + "'>\n";
-                        var styles = getSubStyles( val.id )
-                        $.each(styles, function(key, val) {
-                            var selected = "";
-                            if( val.id == subStyleID ) {
-                                selected = " selected";
-                            }
-                            styleOptions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
-                        });
-                        styleOptions += "</optgroup>\n";
-                    });
-
-                    $("select#subStyle").html(styleOptions);
-                    $("select#subStyle").trigger("chosen:updated");
+            	var json = data;
+                if( data.styles != null ) {
+                	json = data.styles;
                 }
+                var styleOptions = "";
+                $.each(json, function(key, val) {
+                    styleOptions += "<optgroup label='" + val.name + "'>\n";
+                    var styles = val.subStyles;//getSubStyles( val.id )
+                    $.each(styles, function(key, val) {
+                        var selected = "";
+                        if( val.id == subStyleID ) {
+                            selected = " selected";
+                        }
+                        styleOptions += "<option value='" + val.id + "'" + selected + ">" + val.name + "</option>\n";
+                    });
+                    styleOptions += "</optgroup>\n";
+                });
+
+                $("select#subStyle").html(styleOptions);
+                $("select#subStyle").trigger("chosen:updated");
             },
             error: function(x,s,e){
                 console.log(s+e);

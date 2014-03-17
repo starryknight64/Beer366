@@ -11,6 +11,8 @@ class BeerStyleController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	def beer366Service
+	
     def index() {
         redirect(action: "list", params: params)
     }
@@ -20,13 +22,21 @@ class BeerStyleController {
         [beerStyleInstanceList: BeerStyle.list(params), beerStyleInstanceTotal: BeerStyle.count()]
     }
 
-    def familyStyles() {
+    def familySubStyles() {
         def familyID = params.familyid
-        def m = []
+        def m = [:]
         if( familyID == "all" ) {
-            m = BeerStyle.list()
-        } else {
-            m = BeerStyle.findAllByFamily( BeerFamily.get(familyID) )
+			m = beer366Service.beerStyles( null )
+        } else if( familyID ) {
+			def styles = beer366Service.beerStyles( null )
+			def family = BeerFamily.get(familyID)
+			def familyStyles = BeerStyle.findAllByFamily( family )
+			m.put( "familyName", family.name )
+			m.put( "familyID", family.id )
+			m.put( "styles", [] )
+			familyStyles.each { style ->
+				m.get("styles",[]).add( styles.find{ it.id == style.id })
+			}
         }
         render m as JSON
     }
