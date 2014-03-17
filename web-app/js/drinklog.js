@@ -6,7 +6,7 @@ $(document).ready(function() {
     var chosenOptions = {
         search_contains: true
     };
-    var ratingDescriptions = ["Revolting","Yuck!","Meh...","Average","Great","Excellent"];
+    var ratingDescriptions = ["An awful beer","A bad beer","A drinkable beer","An average beer","A good beer","An amazing beer"];
     jQuery.support.cors = true;
 
     function breweryUpdated() {
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     function ratingUpdated() {
         var rating = parseInt($("input#rating").val());
-        var desc = "";
+        var desc = "Please rate between 0 and 5";
         if( rating != NaN ) {
             if( rating >= 0 && rating <= 5 ) {
                 desc = ratingDescriptions[rating];
