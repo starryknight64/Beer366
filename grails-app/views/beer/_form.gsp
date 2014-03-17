@@ -60,3 +60,12 @@
     <span class="help-inline">${hasErrors(bean: beerInstance, field: 'baPage', 'error')}</span>
   </div>
 </div>
+
+<div class="control-group fieldcontain ${hasErrors(bean: beer, field: 'notes', 'error')} ">
+  <label for="notes" class="control-label"><g:message code="beer.notes.label" default="Notes" /></label>
+  <div class="controls">
+    <g:textArea name="notes" cols="40" rows="5" value="${beer?.notes}"/>
+    <span class="help-inline">${hasErrors(bean: beer, field: 'notes', 'error')}</span>
+  </div>
+</div>
+
