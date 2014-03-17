@@ -47,7 +47,7 @@
   <div class="control-group fieldcontain ${hasErrors(bean: breweryInstance, field: 'country', 'error')} required">
     <label for="country" class="control-label"><g:message code="brewery.country.label" default="Country" /><span class="required-indicator">*</span></label>
     <div class="controls">
-      <g:select id="country" name="country.id" from="${beer366.ISO_3166_1.list()}" optionKey="id" required="" value="${breweryInstance?.country?.id}" class="many-to-one"/>
+      <g:select id="country" name="country.id" from="${beer366.ISO_3166_1.list()}" optionKey="id" required="" value="${breweryInstance?.country?.id ?: beer366.ISO_3166_1.getDefault()?.id}" class="many-to-one"/>
       <span class="help-inline">${hasErrors(bean: breweryInstance, field: 'country', 'error')}</span>
     </div>
   </div>

@@ -39,6 +39,10 @@ class ISO_3166_1 {
     /*
      * Methods of the Domain Class
      */
+	
+	static ISO_3166_1 getDefault() {
+		ISO_3166_1.findByAlpha2("US")
+	}
 
     public Boolean isUSA() {
         return alpha2 == "US"
