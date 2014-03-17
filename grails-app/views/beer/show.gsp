@@ -37,7 +37,13 @@
     </div>
     <div class="span4">
       <h3>Ratings</h3>
-      <p><b>BA:</b> <a href="${beerInstance.beerAdvocateURL()}" target="_blank">${beerInstance.baRating ?: "N/A"}<i class="icon-share-alt"></i></a></p>
+      <p><b>BA:</b>
+      <g:if test="${beerInstance.baRating}">
+        <a href="${beerInstance.beerAdvocateURL()}" target="_blank">${beerInstance.baRating}<i class="icon-share-alt"></i></a></p>
+      </g:if>
+      <g:else>
+        N/A
+      </g:else>
       <p><b>Beer366:</b> <g:formatNumber number="${beerInstance.averageRating()}" format="0.00" /></p>
     </div>
   </div>
