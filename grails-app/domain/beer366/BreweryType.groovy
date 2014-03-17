@@ -31,6 +31,10 @@ class BreweryType {
         description nullable: true
         name unique: true
     }
+	
+	static BreweryType getDefault() {
+		BreweryType.findByName("brewery")
+	}
 
     /*
      * Methods of the Domain Class

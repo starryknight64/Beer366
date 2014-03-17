@@ -75,7 +75,7 @@
   <div class="control-group fieldcontain ${hasErrors(bean: breweryInstance, field: 'type', 'error')} required">
     <label for="type" class="control-label"><g:message code="brewery.type.label" default="Type" /><span class="required-indicator">*</span></label>
     <div class="controls">
-      <g:select id="type" name="type.id" from="${beer366.BreweryType.list()}" optionKey="id" required="" value="${breweryInstance?.type?.id}" class="many-to-one"/>
+      <g:select id="type" name="type.id" from="${beer366.BreweryType.list()}" optionKey="id" required="" value="${breweryInstance?.type?.id ?: beer366.BreweryType.getDefault()?.id}" class="many-to-one"/>
       <span class="help-inline">${hasErrors(bean: breweryInstance, field: 'type', 'error')}</span>
     </div>
   </div>
