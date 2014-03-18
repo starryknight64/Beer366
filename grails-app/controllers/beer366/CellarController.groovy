@@ -1,6 +1,7 @@
 package beer366
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 
 /**
  * CellarController
@@ -15,6 +16,10 @@ class CellarController {
     def index() {
         redirect(action: "list", params: params)
     }
+	
+	def get( Long id ) {
+		render Cellar.get( id ) as JSON
+	}
 
     def list() {
         def user = params.id ? User.get( params.id ) : springSecurityService.currentUser

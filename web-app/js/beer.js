@@ -5,22 +5,6 @@ $(document).ready(function() {
     var chosenOptions = {search_contains: true};
     jQuery.support.cors = true;
 
-    function getSubStyles( styleID ) {
-        var subStyles = []
-        $.ajax({
-            url:baseURL + '/beerSubStyle/subStyles?styleid=' + styleID,
-            crossDomain:true,
-            async:false,
-            success: function(data) {
-                subStyles = data;
-            },
-            error: function(x,s,e){
-                console.log(s+e);
-            }
-        });
-        return subStyles;
-    }
-
     function familyUpdated() {
     	var familyVal = $("#family").val();
         $.ajax({
@@ -34,7 +18,7 @@ $(document).ready(function() {
                 var styleOptions = "";
                 $.each(json, function(key, val) {
                     styleOptions += "<optgroup label='" + val.name + "'>\n";
-                    var styles = val.subStyles;//getSubStyles( val.id )
+                    var styles = val.subStyles;
                     $.each(styles, function(key, val) {
                         var selected = "";
                         if( val.id == subStyleID ) {

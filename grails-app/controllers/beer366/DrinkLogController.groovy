@@ -27,6 +27,7 @@ class DrinkLogController {
             def cellar = Cellar.get( params.id )
             params.beer = cellar?.beer
             params.servingSize = cellar?.servingSize
+			params.notes = cellar?.notes
         } else {
             params.beer = Beer.get( params.id )
         }

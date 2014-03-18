@@ -70,6 +70,22 @@ $(document).ready(function() {
         $("select#servingSize").val(servingSizeID);
         $("select#servingSize").trigger("chosen:updated");
         
+        //Get notes
+        $.ajax({
+            url:baseURL + '/cellar/get?id=' + cellarID,
+            crossDomain:true,
+            success: function(data) {
+            	var notes = "";
+                if( data.notes != null ) {
+                	notes = data.notes;
+                }
+                $("textarea#notes").val(notes);
+            },
+            error: function(x,s,e){
+                console.log(s+e);
+            }
+        });
+        
         //Get brewery ID
         var breweryID = $("select#cellarBeer option:selected").attr("breweryid");
         beer = $("select#cellarBeer option:selected").attr("beerid");
