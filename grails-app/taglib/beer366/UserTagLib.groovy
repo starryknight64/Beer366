@@ -29,8 +29,8 @@ class UserTagLib {
     }
 
     def renderUniqueBeersSection = { attrs ->
-        def uniqueBeers = attrs.user?.getUniqueBeers()?.sort{ a,b -> a.brewery.name <=> b.brewery.name }
-        out << "<h2>${attrs.user}'s Unique Beers</h2><ul>"
+        def uniqueBeers = attrs.user?.getUniqueBeers()?.sort{ a,b -> a.brewery.sanitizedName <=> b.brewery.sanitizedName }
+        out << "<h2>${attrs.user}'s Unique Beers (${uniqueBeers?.size() ?: 0})</h2><ul>"
         if( uniqueBeers ) {
             uniqueBeers.each {
                 out << "<li>${g.link( action:"show", controller:"brewery", id:it.brewery.id, "${it.brewery}" )}: ${g.link( action:"show", controller:"beer", id:it.id, "${it}" )}</li>"
