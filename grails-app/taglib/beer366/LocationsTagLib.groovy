@@ -47,7 +47,7 @@ class LocationsTagLib {
                 out << "</li>"
             }
             if( state ) {
-                out << "<li>${state.name}<span class='divider'>/</span></li>"
+                out << "<li><span class='divider'>/</span>${state.name}</li>"
             }
             out << "</ul>"
         } else {
