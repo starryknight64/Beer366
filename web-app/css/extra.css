@@ -1,3 +1,7 @@
+.breadcrumb .divider {
+    padding: 0 9px;
+}
+
 #chart_div rect[stroke=none] {
 	display: none;
 }
