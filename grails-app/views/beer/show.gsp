@@ -38,8 +38,8 @@
     <div class="span4">
       <h3>Ratings</h3>
       <p><b>BA:</b>
-      <g:if test="${beerInstance.baRating}">
-        <a href="${beerInstance.beerAdvocateURL()}" target="_blank">${beerInstance.baRating}<i class="icon-share-alt"></i></a></p>
+      <g:if test="${beerInstance.baPage}">
+        <a href="${beerInstance.beerAdvocateURL()}" target="_blank">${beerInstance.baRating ?: "N/A"}<i class="icon-share-alt"></i></a></p>
       </g:if>
       <g:else>
         N/A

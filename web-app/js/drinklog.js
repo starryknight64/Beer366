@@ -57,6 +57,7 @@ $(document).ready(function() {
         $("input#cellarBeerChosen").val("false");
         $("select#cellarBeer").val(null);
         $("select#cellarBeer").trigger("chosen:updated");
+        $("textarea#notes").val("");
     }
 
     $("select#cellarBeer").change(function() {
