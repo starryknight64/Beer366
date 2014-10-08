@@ -109,6 +109,9 @@ class Beers_Model extends CI_Model {
                 $page = substr( $page, strlen( $starterwww ) );
             }
         }
+        if( substr($page, -1) === "/" ) { //If page endsWith "/" then remove it
+            $page = substr( $page, strlen($page)-1 );
+        }
         $query = $this
             ->db
             ->where( "LOWER( ba_page ) = '" . str_replace( "'", "\\'", strtolower( $page ) ) . "'" )
@@ -135,6 +138,10 @@ class Beers_Model extends CI_Model {
                 $page = substr( $page, strlen( $starter ) );
             } else if( strncmp( $page, $starterwww, strlen( $starterwww ) ) == 0 ) ) {
                 $page = substr( $page, strlen( $starterwww ) );
+            }
+            
+            if( substr($page, -1) === "/" ) { //If page endsWith "/" then remove it
+                $page = substr( $page, strlen($page)-1 );
             }
         }
         $data = array (
