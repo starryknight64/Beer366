@@ -95,6 +95,7 @@ class Beer366Service {
 		def styles = []
 		rows.each { row ->
 			def style = styles.find{ it.id == row.styleID } ?: [:]
+			styles.remove(style)
 			style.put( "id", row.styleID )
 			style.put( "name", row.styleName )
 			style.get( "subStyles", [] ).add( ["id":row.subStyleID,"name":row.subStyleName] )
