@@ -110,7 +110,7 @@ class Beers_Model extends CI_Model {
             }
         }
         if( substr($page, -1) === "/" ) { //If page endsWith "/" then remove it
-            $page = substr( $page, strlen($page)-1 );
+            $page = substr( $page, 0, strlen($page)-1 );
         }
         $query = $this
             ->db
@@ -141,7 +141,7 @@ class Beers_Model extends CI_Model {
             }
             
             if( substr($page, -1) === "/" ) { //If page endsWith "/" then remove it
-                $page = substr( $page, strlen($page)-1 );
+                $page = substr( $page, 0, strlen($page)-1 );
             }
         }
         $data = array (
