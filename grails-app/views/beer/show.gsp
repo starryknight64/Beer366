@@ -41,6 +41,9 @@
       <g:if test="${beerInstance.baPage}">
         <a href="${beerInstance.beerAdvocateURL()}" target="_blank">${beerInstance.baRating ?: "N/A"}<i class="icon-share-alt"></i></a></p>
       </g:if>
+      <g:elseif test="${beerInstance.baRating}">
+        ${beerInstance.baRating}
+      </g:elseif>
       <g:else>
         N/A
       </g:else>

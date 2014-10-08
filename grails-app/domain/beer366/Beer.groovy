@@ -63,7 +63,7 @@ class Beer {
     }
 
     public String beerAdvocateURL() {
-        new Beer366Service().beerAdvocateBaseURL() + baPage
+        baPage ? new Beer366Service().beerAdvocateBaseURL() + baPage : ""
     }
 
     public BigDecimal averageRating() {
