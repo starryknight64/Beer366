@@ -23,6 +23,16 @@ class Beer366Service {
     def beerAdvocateBaseURL() {
         "http://beeradvocate.com/beer/profile/"
     }
+	
+	def getUserUniqueBeers( User user ) {
+		List uniqueBeerIDs = beer366Service.userUniqueBeers( user.id ).get( user.id ).asList()
+		Beer.getAll(uniqueBeerIDs).asList()
+	}
+	
+	def getUserGlobalUniqueBeers( User user ) {
+		List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( user.id ).get( user.id ).asList()
+		Beer.getAll(globalUniqueBeerIDs).asList()
+	}
 
     def userUniqueBeers( Long usrID ) {
         def userID = usrID ?: 0

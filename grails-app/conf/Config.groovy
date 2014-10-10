@@ -114,6 +114,9 @@ grails.plugins.springsecurity.ui.password.validationRegex = "(?i)[a-z0-9_]+"
 
 grails.plugins.springsecurity.useSecurityEventListener = true
 
+grails.plugins.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = "/user/home"
+
 grails.plugins.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
     beer366.User.withTransaction {
         def user = beer366.User.get(appCtx.springSecurityService.principal.id)

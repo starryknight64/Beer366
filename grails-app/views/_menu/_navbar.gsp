@@ -8,10 +8,10 @@
         <span class="icon-bar"></span>
       </a>
 
-      <b:userHomeLink>
+      <a class='brand' href="${createLink(uri: "/user/home")}">
         <img src="${resource(dir:'images',file:'pint_32_txt.png')}" alt="${meta(name:'app.name')}" />
 ${meta(name:'app.name')}<small> v${meta(name:'app.version')}</small>
-      </b:userHomeLink>
+      </a>
 
       <div class="nav-collapse">
         <ul class="nav">

@@ -29,7 +29,7 @@ class UserTagLib {
     }
 
     def renderUniqueBeersSection = { attrs ->
-        def uniqueBeers = attrs.user?.getUniqueBeers()?.sort{ a,b -> a.brewery.sanitizedName <=> b.brewery.sanitizedName }
+        def uniqueBeers = beer366Service.getUserUniqueBeers(attrs.user)?.sort{ a,b -> a.brewery.sanitizedName <=> b.brewery.sanitizedName }
         out << "<h2>${attrs.user}'s Unique Beers (${uniqueBeers?.size() ?: 0})</h2><ul>"
         if( uniqueBeers ) {
             uniqueBeers.each {

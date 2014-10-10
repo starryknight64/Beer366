@@ -11,6 +11,10 @@ class UserController {
     def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	
+	def home() {
+        redirect( url: createLink(uri: springSecurityService.currentUser.homepage ?: "/", absolute:true) )
+	}
 
     def index() {
         if( params.sanitizedUsername ) {
@@ -58,7 +62,8 @@ class UserController {
         def baseURL = createLink(uri:'/', absolute:true)
         def referer = request.getHeader('referer')
         if( referer.toLowerCase().startsWith( baseURL.toLowerCase() ) ) {
-            userInstance.homepage = referer.replace(baseURL,"") ?: null
+			def home = referer.replace(baseURL,"")
+            userInstance.homepage = home ? "/${home}" : null
             userInstance.save(flush:true)
             redirect( uri: request.getHeader('referer') )
             return

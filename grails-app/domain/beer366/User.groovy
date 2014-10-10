@@ -59,25 +59,6 @@ class User {
         }
     }
 
-    List<Beer> getUniqueBeers() {
-        if (!this.isAttached()) {
-            this.attach()
-        }
-        List uniqueBeerIDs = beer366Service.userUniqueBeers( this.id ).get( this.id ).asList()
-        Beer.getAll(uniqueBeerIDs).asList()
-    }
-
-    List<Beer> getGloballyUniqueBeers() {
-        if (!this.isAttached()) {
-            this.attach()
-        }
-		if( this.id != null ) {
-	        List globalUniqueBeerIDs = beer366Service.userGlobalUniqueBeers( this.id ).get( this.id ).asList()
-	        return Beer.getAll(globalUniqueBeerIDs).asList()
-		}
-		return []
-    }
-
     Set<Role> getAuthorities() {
         UserRole.findAllByUser(this).collect { it.role } as Set
     }

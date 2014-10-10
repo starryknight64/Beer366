@@ -7,16 +7,16 @@ class UrlMappings {
          */
         //		"/"				(view:"/index")
 		"/about"		(view:"/siteinfo/about")
-		"/blog"			(view:"/siteinfo/blog")
-		"/systeminfo"	(view:"/siteinfo/systeminfo")
-		"/contact"		(view:"/siteinfo/contact")
-		"/terms"		(view:"/siteinfo/terms")
-		"/imprint"		(view:"/siteinfo/imprint")
+//		"/blog"			(view:"/siteinfo/blog")
+//		"/systeminfo"	(view:"/siteinfo/systeminfo")
+//		"/contact"		(view:"/siteinfo/contact")
+//		"/terms"		(view:"/siteinfo/terms")
+//		"/imprint"		(view:"/siteinfo/imprint")
 
         /*
          * SEO-Friendly URLs
          */
-        "/beer/$sanitizedName?" {
+        /*"/beer/$sanitizedName?" {
             controller='beer'
             constraints {
                 sanitizedName(matches:/^(?!^(list|create|save|show|edit|update|delete|breweryBeers)$).+$/)
@@ -33,7 +33,7 @@ class UrlMappings {
             constraints {
                 sanitizedUsername(matches:/^(?!^(list|create|save|show|edit|update|delete|updateHomepage|totals|uniques|completelog|info)$).+$/)
             }
-        }
+        }*/
         //        "/cellar/$sanitizedUsername"{
         //            controller:'beer'
         //            action:'show'
