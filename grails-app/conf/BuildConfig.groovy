@@ -60,6 +60,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
+		compile ":avatar:0.6.3"
         compile ":quartz:1.0-RC6"
         compile ":seo-friendly-urls:1.0.1"
         compile ":lesscss-resources:1.3.1"

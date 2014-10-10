@@ -12,7 +12,7 @@
 
 <body>
   <div class="page-header">
-      <h1>${userInstance}'s Profile</h1>
+      <h1><avatar:gravatar email="${userInstance.email}" size="50" /> ${userInstance}'s Profile</h1>
   </div>
   <b:renderFivesSection user="${userInstance}" />
   <b:renderStrongestBeersSection user="${userInstance}" />

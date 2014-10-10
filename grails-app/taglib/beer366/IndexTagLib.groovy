@@ -32,7 +32,7 @@ class IndexTagLib {
                     out << """
                         <tr>
                           <td>
-                            ${g.link( action:"show", controller:"user", id:user.id ) {user}}
+                            ${g.link( action:"show", controller:"user", id:user.id ) {avatar.gravatar(email: user.email)}} ${g.link( action:"show", controller:"user", id:user.id ) {user}}
                           </td>
                           <td>
                             $userDrinkLogCount
@@ -108,7 +108,7 @@ class IndexTagLib {
                 out << """
                     <tr>
                       <td>
-                        ${g.link( action:"show", controller:"user", id:userID ) {user}}
+                        ${g.link( action:"show", controller:"user", id:user.id ) {avatar.gravatar(email: user.email)}} ${g.link( action:"show", controller:"user", id:userID ) {user}}
                       </td>
                       <td>
                         $userUniqueBeerCount
@@ -198,8 +198,8 @@ class IndexTagLib {
             """
             if( attrs?.showPerson ) {
                 out << """
-                        <td>
-                            ${g.link( action:"show", controller:"user", id:log.user.id ) {log.user}}
+                        <td class="nowrap">
+                            ${g.link( action:"show", controller:"user", id:log.user.id ) {avatar.gravatar(email: log.user.email)}} ${g.link( action:"show", controller:"user", id:log.user.id, class:"username" ) {log.user}}
                         </td>
                 """
             }
