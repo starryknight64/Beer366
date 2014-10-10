@@ -13,7 +13,8 @@ class UserController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
 	def home() {
-        redirect( url: createLink(uri: springSecurityService.currentUser.homepage ?: "/", absolute:true) )
+		def homepage = springSecurityService.currentUser.homepage
+        redirect( url: createLink(uri: homepage ? "/${homepage}" : "/", absolute:true) )
 	}
 
     def index() {
