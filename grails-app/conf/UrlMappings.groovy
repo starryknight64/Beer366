@@ -52,10 +52,39 @@ class UrlMappings {
         }
 		"/$controller/$action?/$id?"{
             constraints {
-                controller(matches:/^((?!(api|mobile|web)).*)$/)
+                controller(matches:/^((?!(rest|api|mobile|web)).*)$/)
             }
         }
-
+		"/rest/brewery/$action?" {
+			controller = "RestBrewery"
+		}
+		"/rest/brewery/$id?" {
+			controller = "RestBrewery"
+		}
+		"/rest/beer/$action?/$id?" {
+			controller = "RestBeer"
+		}
+		"/rest/beer/$action?" {
+			controller = "RestBeer"
+		}
+		"/rest/beer/$id?" {
+			controller = "RestBeer"
+		}
+		"/rest/servingsize/$action?" {
+			controller = "RestServingSize"
+		}
+		"/rest/servingsize/$id?" {
+			controller = "RestServingSize"
+		}
+		"/rest/drinklog/$action?" {
+			controller = "RestDrinkLog"
+			constraints {
+				action(matches:/^(list|create|update|delete).*$/)
+			}
+		}
+		"/rest/drinklog/$id?" {
+			controller = "RestDrinkLog"
+		}
         /*
          * System Pages without controller
          */

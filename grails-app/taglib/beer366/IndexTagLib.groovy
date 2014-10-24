@@ -214,8 +214,8 @@ class IndexTagLib {
                 """
             }
             out << """
-                    <td class="nowrap" sorttable_customkey="${log.servingSize.ml}">
-                        ${log.servingSize.name}
+                    <td class="nowrap" sorttable_customkey="${log.servingSize?.ml ?: 0}">
+                        ${log.servingSize?.name ?: ""}
                     </td>
                     <td>
                         ${log.rating ?: ""}
